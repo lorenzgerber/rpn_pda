@@ -38,7 +38,7 @@ typedef void ValueFreeFunc(VALUE);
 #endif
 
 
-typedef void /* void här kan ni om ni vill byta ut mot en egen struct i era tabellimplementationer */ Table;
+typedef void Table;
 
 /* Creates a table.
  *  compare_function - Pointer to a function that is called for comparing

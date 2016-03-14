@@ -7,3 +7,28 @@
 #define TRANSITION
 
 #include <stdbool.h>
+#include "dlist.h"
+
+typedef struct {
+    char description[255];
+    int sourceState;
+    int destState;
+    int (*read) (int);
+    int (*pop) (int);
+    int (*push) (int);
+    int (*process) (int);
+    
+} Transition;
+
+/*
+ * function to create a new transition
+ */
+Transition * transition_create(char description[255],
+                               int sourceState,
+                               int destState,
+                               int (*read) (int),
+                               int (*pop) (int),
+                               int (*push) (int),
+                               int (*process) (int));
+
+#endif /*TRANSITION*/

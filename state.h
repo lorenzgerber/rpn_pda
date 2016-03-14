@@ -7,3 +7,36 @@
 #define STATE
 
 #include <stdbool.h>
+#include "table.h"
+#include "dlist.h"
+#include "transition.h"
+
+typedef struct {
+    int id;
+    bool accepted;
+    char description[255];
+    dlist * transitions;
+} State;
+
+/*
+ * function to create a state that can host transitions
+ */
+State * state_create(int id, bool accepted,
+                     char description[255]);
+
+bool state_isEmpty(State *state);
+
+
+/*
+ * function to add a transition to the current state
+ */
+void * state_addTransition(State * current_state,
+                            Transition * current_transition
+);
+
+/*
+ * function that returns the id of a state
+ */
+int * state_stateId(State * state);
+
+#endif /*STATE*/
