@@ -6,4 +6,19 @@
 
 #include <stdbool.h>
 
-bool isNumber(char toCheck);
+/*
+ * Function that checks for operator. If the provided argument
+ * is one of the four base operators, the function returns 1
+ */
+int isOperator(char toCheck);
+
+
+/*
+ * Function used as epsilon condition in transitions
+ */
+int isEpsilon(char toCheck);
+
+/*
+ * Function that returns the argument
+ */
+int pushThrough(char toPush);

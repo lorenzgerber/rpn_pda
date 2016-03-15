@@ -8,6 +8,7 @@
 #include "pda.h"
 #include <ctype.h>
 #include "dlist.h"
+#include "functions.h"
 
 int wrongArgs(void);
 
@@ -31,7 +32,7 @@ int main(int argc, char **argv) {
 
 
     // Test creating transitions
-    Transition *trans1 = transition_create("this is the transition from a to b",0, 1, isdigit, isdigit,isdigit,NULL);
+    Transition *trans1 = transition_create("this is the transition from a to b",0, 1, isdigit, NULL, isdigit ,NULL);
     Transition *trans2 = transition_create("this is the transition from b to c",0, 1, isdigit, isdigit, isdigit, NULL);
     Transition *trans3 = transition_create("this is the transition fron c to d",0, 1, isdigit, isdigit, isdigit, NULL);
 

@@ -31,10 +31,31 @@ Transition * transition_create(char description[255],
                                int (*push) (int),
                                int (*process) (int));
 
+
 /*
- * function to check whether a transition is possible
+ * function to check if read is NULL hence Epsilon
  */
-int * transition_check(Transition * transition, char input, char stack);
+int transition_checkReadEpsilon(Transition * transition);
+
+/*
+ * function to check if pop is NULL hence Epsilon
+ */
+int transition_checkPopEpsilon(Transition * transition);
+
+/*
+ * function to check if push is NULL hence Epsilon
+ */
+int transition_checkPushEpsilon(Transition * transition);
+
+/*
+ * function to check if read condition is fulfilled
+ */
+int transition_checkRead(Transition * transition, char input);
+
+/*
+ * function to check if pop condition is fulfilled
+ */
+int transition_checkPop(Transition * transition, char topStack);
 
 
 #endif /*TRANSITION*/

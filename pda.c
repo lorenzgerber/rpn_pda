@@ -57,8 +57,13 @@ int *pda_execute(Pda *pda, char *input){
     printf("%s\n", input);
     printf("%lu\n", strlen(input));
 
+
+
     // detect input string length
     int inputLength = (int)strlen(input);
+
+
+
 
     // check if there is a start state (0)
     int *zero = calloc(1,sizeof(int));
@@ -78,30 +83,83 @@ int *pda_execute(Pda *pda, char *input){
     pda->reg = 0;
 
 
+
+
+
     // get first position in transitions dlist
     dlist_position currentTransPos = dlist_first(start->transitions);
 
+
+
+
     // dlist position of transition to do
     dlist_position possibleTransPos;
+
+
+
 
     // Loop through transitions until last position
     while(!dlist_isEnd(start->transitions, currentTransPos)){
         printf("not the end yet\n");
 
         // Access data of current Transition
+
         Transition *currentTransition;
         currentTransition = (Transition*)dlist_inspect(start->transitions, currentTransPos);
         printf("%s\n", currentTransition->description);
 
+
+
+        // first check if Read is epsilon, if so, skip
+        // check for type
+        if(!transition_checkReadEpsilon(currentTransition)){
+            transition_checkRead(currentTransition, *input);
+        }
+
+
+        // first check if Pop is epsilon, if so, skip
+        // check for type
+        if(!transition_checkPopEpsilon(currentTransition)){
+            transition_checkPop(currentTransition,(char)stack_top(pda->pdaStack));
+        }
+
+
+        transition_checkPushEpsilon(currentTransition);
+
+
         // Check if current transition is possible
         if(currentTransition->read(pda->currentInput)){
-            printf("current input is a digit");
+            if(stack_isEmpty(pda->pdaStack)){
+
+                printf("Stack is empty\n");
+
+
+                //if(currentTransition->pop(0)){
+                    //printf("this shows when NULL is true");
+                //}
+
+            } else {
+                printf("Stack is not empty\n");
+            }
         } else {
-            printf("current input is not a digit");
+            printf("input data does not fit\n");
         }
+
+        int * toStack = calloc(1, sizeof(int));
+        *toStack = input[inputPos];
+
+        stack_push(pda->pdaStack, toStack);
+        free(toStack);
+
+
+
         // go to next transition
         currentTransPos = dlist_next(start->transitions, currentTransPos);
     }
+
+    // do an actual transition
+
+
 
 
 
