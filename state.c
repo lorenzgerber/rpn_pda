@@ -30,7 +30,9 @@ State * state_create(int id, bool accepted,
     return new_state;
 };
 
-
+/*
+ * funciton to check whether a state is empty
+ */
 bool state_isEmpty(State *state) {
     State *st  = state;
     return dlist_isEmpty(st->transitions);
@@ -60,3 +62,10 @@ void * state_addTransition(State * state,
     return state;
 
 };
+
+/*
+ * function that returns the id of a state
+ */
+int state_getId(State * state){
+    return state->id;
+}

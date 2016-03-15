@@ -6,9 +6,10 @@
 
 #include "pda.h"
 #include "state.h"
+#include "transition.h"
 #include <stdlib.h>
 #include <string.h>
-
+#include "functions.h"
 
 
 /*
@@ -39,11 +40,9 @@ Pda *pda_create()
  * Function to add a new state
  */
 void *pda_addState(Pda *pda, State *state){
-
-    int* stateId;
-    stateId = &state->id;
+    int * stateId = calloc(1, sizeof(int));
+    *stateId = state->id;
     table_insert(pda->pdaStateTable, stateId, state);
-
     return 0;
 }
 
@@ -61,15 +60,40 @@ int *pda_execute(Pda *pda, char *input){
     // detect input string length
     int inputLength = (int)strlen(input);
 
-    // is there a state 0 (start state)
-    int* zero;
-    zero = 0;
-    //State* start;
-    //start = (State*) table_lookup(pda->pdaStateTable, zero);
+    // check if there is a start state (0)
+    int *zero = calloc(1,sizeof(int));
+    *zero = 0;
+    State *start = (State*)table_lookup(pda->pdaStateTable, zero);
+
+    if(start){
+        printf("start state found\n");
+    } else {
+        printf("start state missing\n");
+        free(zero);
+        return 0;
+    }
+
+    int inputPos = 0;
+    pda->currentInput = input[inputPos];
+    pda->reg = 0;
 
 
+    // get first position in transitions dlist
+    dlist_position currentTransPos = dlist_first(start->transitions);
 
-    // set current state, current input and current stack in pda
+    // Loop through transitions until last positon
+    while(!dlist_isEnd(start->transitions, currentTransPos)){
+        printf("not the end yet\n");
+
+        // Access data of current Transition
+        Transition *currentTransition;
+        currentTransition = (Transition*)dlist_inspect(start->transitions, currentTransPos);
+        printf("%s\n", currentTransition->description);
+
+        // go to next transition
+        currentTransPos = dlist_next(start->transitions, currentTransPos);
+    }
+
 
 
 
@@ -77,12 +101,7 @@ int *pda_execute(Pda *pda, char *input){
 
     // looping through the input string
     for(int iii = 0; iii < strlen(input);iii++){
-
-        printf("%c\n", input[iii]);
-
-
-
-
+        //printf("%c\n", input[iii]);
 
     }
 

@@ -37,6 +37,6 @@ void * state_addTransition(State * current_state,
 /*
  * function that returns the id of a state
  */
-int * state_stateId(State * state);
+int state_getId(State * state);
 
 #endif /*STATE*/

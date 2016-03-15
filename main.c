@@ -25,6 +25,7 @@ int main(int argc, char **argv) {
 
 
     // Test creating states
+    //State *first = calloc(1, sizeof(State));
     State *first = state_create(0, false, "This is the first state");
     State *second = state_create(1, true, "This is the second state");
 
@@ -40,6 +41,7 @@ int main(int argc, char **argv) {
     // Test adding states to state
     state_addTransition(first, trans1);
     state_addTransition(first, trans2);
+    printf("state id %d\n", state_getId(first));
 
     state_addTransition(second, trans3);
 
