@@ -6,3 +6,4 @@
 
 #include <stdbool.h>
 
+bool isNumber(char toCheck);

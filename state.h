@@ -30,8 +30,8 @@ bool state_isEmpty(State *state);
 /*
  * function to add a transition to the current state
  */
-void * state_addTransition(State * current_state,
-                            Transition * current_transition
+void * state_addTransition(State * state,
+                            Transition * transition
 );
 
 /*

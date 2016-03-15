@@ -5,3 +5,15 @@
 
 
 #include <stdbool.h>
+#include <ctype.h>
+
+int isOperator(char toCheck){
+    if(toCheck == 42 || toCheck == 43 || toCheck == 45 || toCheck == 47){
+        return 1;
+    }
+    return 0;
+}
+
+int isEpsilon(char toCheck){
+    return 3;
+}

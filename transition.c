@@ -34,5 +34,9 @@ Transition * transition_create(char description[255],
     return new_transition;
 }
 
+/*
+ * function to check whether a transition is possible
+ */
+int * transition_check(Transition * transition, char input, char stack);
 
 

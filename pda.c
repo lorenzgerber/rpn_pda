@@ -81,7 +81,10 @@ int *pda_execute(Pda *pda, char *input){
     // get first position in transitions dlist
     dlist_position currentTransPos = dlist_first(start->transitions);
 
-    // Loop through transitions until last positon
+    // dlist position of transition to do
+    dlist_position possibleTransPos;
+
+    // Loop through transitions until last position
     while(!dlist_isEnd(start->transitions, currentTransPos)){
         printf("not the end yet\n");
 
@@ -90,6 +93,12 @@ int *pda_execute(Pda *pda, char *input){
         currentTransition = (Transition*)dlist_inspect(start->transitions, currentTransPos);
         printf("%s\n", currentTransition->description);
 
+        // Check if current transition is possible
+        if(currentTransition->read(pda->currentInput)){
+            printf("current input is a digit");
+        } else {
+            printf("current input is not a digit");
+        }
         // go to next transition
         currentTransPos = dlist_next(start->transitions, currentTransPos);
     }
