@@ -22,10 +22,10 @@ int isOperator(char toCheck){
 /*
  * Function used as epsilon condition in transitions
  */
-int isEpsilon(char toCheck){
+int isEpsilon(char notUsed){
     return 1;
 }
 
-char pushInput(char toPush){
-    return toPush;
+int pushInput(int notUsed){
+    return 256;
 }

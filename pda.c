@@ -80,23 +80,13 @@ int *pda_execute(Pda *pda, char *input){
 
     int inputPos = 0;
     pda->currentInput = input[inputPos];
-    pda->reg = 0;
-
-
-
 
 
     // get first position in transitions dlist
     dlist_position currentTransPos = dlist_first(start->transitions);
 
-
-
-
     // dlist position of transition to do
     dlist_position possibleTransPos;
-
-
-
 
     // Loop through transitions until last position
     while(!dlist_isEnd(start->transitions, currentTransPos)){
@@ -113,18 +103,31 @@ int *pda_execute(Pda *pda, char *input){
         // first check if Read is epsilon, if so, skip
         // check for type
         if(!transition_checkReadEpsilon(currentTransition)){
-            transition_checkRead(currentTransition, *input);
+            if(transition_checkRead(currentTransition, *input)){
+                printf("checkRead is OK\n");
+            } else {
+                printf("checkRead fail\n");
+            }
         }
 
 
         // first check if Pop is epsilon, if so, skip
         // check for type
         if(!transition_checkPopEpsilon(currentTransition)){
-            transition_checkPop(currentTransition,(char)stack_top(pda->pdaStack));
+            if(transition_checkPop(currentTransition,
+                                   *(int*)stack_top(pda->pdaStack))){
+                printf("checkPop is OK\n");
+            } else {
+                printf("checkPop fail\n");
+            }
         }
 
 
-        transition_checkPushEpsilon(currentTransition);
+        if(!transition_checkPushEpsilon(currentTransition)){
+            if(transition_checkPush(currentTransition)==256){
+                printf("we push from input to stack\n");
+            }
+        }
 
 
         // Check if current transition is possible
@@ -132,11 +135,6 @@ int *pda_execute(Pda *pda, char *input){
             if(stack_isEmpty(pda->pdaStack)){
 
                 printf("Stack is empty\n");
-
-
-                //if(currentTransition->pop(0)){
-                    //printf("this shows when NULL is true");
-                //}
 
             } else {
                 printf("Stack is not empty\n");
@@ -157,14 +155,9 @@ int *pda_execute(Pda *pda, char *input){
         currentTransPos = dlist_next(start->transitions, currentTransPos);
     }
 
+    printf("test stack %d\n", *(int*)stack_top(pda->pdaStack));
+
     // do an actual transition
-
-
-
-
-
-
-
 
     // looping through the input string
     for(int iii = 0; iii < strlen(input);iii++){

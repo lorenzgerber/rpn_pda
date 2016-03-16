@@ -21,4 +21,4 @@ int isEpsilon(char toCheck);
 /*
  * Function that returns the argument
  */
-int pushThrough(char toPush);
+int pushInput(int);

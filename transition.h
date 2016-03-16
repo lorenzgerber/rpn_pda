@@ -16,8 +16,6 @@ typedef struct {
     int (*read) (int);
     int (*pop) (int);
     int (*push) (int);
-    int (*process) (int);
-    
 } Transition;
 
 /*
@@ -28,8 +26,7 @@ Transition * transition_create(char description[255],
                                int destState,
                                int (*read) (int),
                                int (*pop) (int),
-                               int (*push) (int),
-                               int (*process) (int));
+                               int (*push) (int));
 
 
 /*
@@ -56,6 +53,13 @@ int transition_checkRead(Transition * transition, char input);
  * function to check if pop condition is fulfilled
  */
 int transition_checkPop(Transition * transition, char topStack);
+
+/*
+ * Function to check whether to push from input or push a char
+ * provided by the transition
+ */
+int transition_checkPush(Transition * transition);
+
 
 
 #endif /*TRANSITION*/

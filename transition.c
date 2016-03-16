@@ -16,8 +16,7 @@ Transition * transition_create(char description[255],
                                int destState,
                                int (*read) (int),
                                int (*pop) (int),
-                               int (*push) (int),
-                               int (*process) (int))
+                               int (*push) (int))
 {
     Transition *new_transition = calloc(sizeof(Transition),1);
     if (!new_transition)
@@ -29,7 +28,6 @@ Transition * transition_create(char description[255],
     new_transition->read = read;
     new_transition->pop = pop;
     new_transition->push = push;
-    new_transition->process = process;
 
     return new_transition;
 }
@@ -63,6 +61,7 @@ int transition_checkPopEpsilon(Transition * transition){
 int transition_checkPushEpsilon(Transition * transition){
     if(*transition->push == NULL){
         printf("Push Transition is epsilon\n");
+        return 1;
     }
     return 0;
 }
@@ -85,3 +84,10 @@ int transition_checkPop(Transition * transition, char topStack){
     return 0;
 }
 
+/*
+ * Function to check whether to push from input or push a char
+ * provided by the transition
+ */
+int transition_checkPush(Transition * transition){
+    return transition->push(1);
+}

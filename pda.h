@@ -16,7 +16,6 @@ typedef struct {
     stack *pdaStack;
     int currentState;
     unsigned char currentInput;
-    int reg;
     memFreeFunc *freeFunc;
 } Pda;
 
