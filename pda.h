@@ -40,6 +40,12 @@ void *pda_addState(Pda *pda, State *state);
 int *pda_execute(Pda *pda, char *input);
 
 
+/*
+ * Function to check if there is a zero state
+ */
+int pda_checkStartState(Pda *pda);
+
+
 
 
 #endif /*PDA*/
