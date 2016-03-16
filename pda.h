@@ -14,8 +14,6 @@
 typedef struct {
     Table *pdaStateTable;
     stack *pdaStack;
-    int currentState;
-    unsigned char currentInput;
     memFreeFunc *freeFunc;
 } Pda;
 

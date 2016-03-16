@@ -38,7 +38,7 @@ int main(int argc, char **argv) {
 
 
 
-    // Test adding states to state
+    // Test adding transitions to state
     state_addTransition(first, trans1);
     state_addTransition(first, trans2);
     printf("state id %d\n", state_getId(first));

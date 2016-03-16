@@ -54,38 +54,41 @@ int compareInt(void *ip,void *ip2){
  * Function to execute a pda
  */
 int *pda_execute(Pda *pda, char *input){
-    printf("%s\n", input);
-    printf("%lu\n", strlen(input));
+
+    /*
+     * INITIALIZE PDA EVALUATION
+     */
 
 
-
-    // detect input string length
+    /*
+     * Check Length of input
+     */
     int inputLength = (int)strlen(input);
 
-
-
-    // Check if there is a start state
+    /*
+     * Check for a start state
+     */
     if(!pda_checkStartState(pda)){
         printf("There is no start state! \n");
         return 0;
     }
 
-    // get start state
+    /*
+     * set current state (here start)
+     */
     int *zero = calloc(1,sizeof(int));
     *zero = 0;
-    State *start = (State*)table_lookup(pda->pdaStateTable, zero);
+    State *currentState = (State*)table_lookup(pda->pdaStateTable, zero);
 
 
-    // get first input char
+
+    /*
+     * set current intput
+     */
     int inputPos = 0;
-    pda->currentInput = input[inputPos];
-
-    // dlist position variable for transition to do
-    dlist_position *possibleTransPos;
-
 
     // Get first position in transitions dlist of start state
-    dlist_position currentTransPos = dlist_first(start->transitions);
+    dlist_position currentTransPos = dlist_first(currentState->transitions);
 
 
 
@@ -97,7 +100,7 @@ int *pda_execute(Pda *pda, char *input){
     int nextTransition = 0;
 
     // Loop through transitions until last position
-    while(!dlist_isEnd(start->transitions, currentTransPos)){
+    while(!dlist_isEnd(currentState->transitions, currentTransPos)){
 
         // set Read, Pop and Push Check flag to zero
         transReadCheckFlag = 0;
@@ -107,7 +110,7 @@ int *pda_execute(Pda *pda, char *input){
 
         // Access current Transition
         Transition *currentTransition;
-        currentTransition = (Transition*)dlist_inspect(start->transitions, currentTransPos);
+        currentTransition = (Transition*)dlist_inspect(currentState->transitions, currentTransPos);
         printf("%s\n", currentTransition->description);
 
 
@@ -167,7 +170,7 @@ int *pda_execute(Pda *pda, char *input){
 
 
         // go to next transition
-        currentTransPos = dlist_next(start->transitions, currentTransPos);
+        currentTransPos = dlist_next(currentState->transitions, currentTransPos);
     }
 
     // announce the next transition
@@ -194,11 +197,9 @@ int pda_checkStartState(Pda *pda){
     State *start = (State*)table_lookup(pda->pdaStateTable, zero);
 
     if(start){
-        printf("start state found\n");
         free(zero);
         return 1;
     } else {
-        printf("start state missing\n");
         free(zero);
         return 0;
     }
