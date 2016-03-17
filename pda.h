@@ -14,6 +14,10 @@
 typedef struct {
     Table *pdaStateTable;
     stack *pdaStack;
+    State *currentState;
+    State *nextState;
+    char *input;
+    char *inputPos;
     memFreeFunc *freeFunc;
 } Pda;
 
@@ -41,9 +45,21 @@ int *pda_execute(Pda *pda, char *input);
 /*
  * Function to check if there is a zero state
  */
-int pda_checkStartState(Pda *pda);
+int pda_setStartState(Pda *pda);
 
-
+/*
+ * pda_getNewState
+ *
+ * Function to check which transition of a state to take
+ *
+ * input:   - State *currentState
+ *          - char *current input
+ *          - State *nextState
+ *
+ * return   - int 0 if succeeded
+ *
+ */
+int pda_getNewState(Pda *pda);
 
 
 #endif /*PDA*/

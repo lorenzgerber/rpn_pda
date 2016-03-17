@@ -66,20 +66,12 @@ int *pda_execute(Pda *pda, char *input){
     int inputLength = (int)strlen(input);
 
     /*
-     * Check for a start state
+     * Set start state
      */
-    if(!pda_checkStartState(pda)){
+    if(!pda_setStartState(pda)){
         printf("There is no start state! \n");
         return 0;
     }
-
-    /*
-     * set current state (here start)
-     */
-    int *zero = calloc(1,sizeof(int));
-    *zero = 0;
-    State *currentState = (State*)table_lookup(pda->pdaStateTable, zero);
-
 
 
     /*
@@ -88,7 +80,7 @@ int *pda_execute(Pda *pda, char *input){
     int inputPos = 0;
 
     // Get first position in transitions dlist of start state
-    dlist_position currentTransPos = dlist_first(currentState->transitions);
+    dlist_position currentTransPos = dlist_first(pda->currentState->transitions);
 
 
 
@@ -100,7 +92,7 @@ int *pda_execute(Pda *pda, char *input){
     int nextTransition = 0;
 
     // Loop through transitions until last position
-    while(!dlist_isEnd(currentState->transitions, currentTransPos)){
+    while(!dlist_isEnd(pda->currentState->transitions, currentTransPos)){
 
         // set Read, Pop and Push Check flag to zero
         transReadCheckFlag = 0;
@@ -110,7 +102,7 @@ int *pda_execute(Pda *pda, char *input){
 
         // Access current Transition
         Transition *currentTransition;
-        currentTransition = (Transition*)dlist_inspect(currentState->transitions, currentTransPos);
+        currentTransition = (Transition*)dlist_inspect(pda->currentState->transitions, currentTransPos);
         printf("%s\n", currentTransition->description);
 
 
@@ -170,7 +162,7 @@ int *pda_execute(Pda *pda, char *input){
 
 
         // go to next transition
-        currentTransPos = dlist_next(currentState->transitions, currentTransPos);
+        currentTransPos = dlist_next(pda->currentState->transitions, currentTransPos);
     }
 
     // announce the next transition
@@ -188,21 +180,38 @@ int *pda_execute(Pda *pda, char *input){
 
 
 /*
- * Function to check if there is a zero state
+ * Function that searches the States for the start state and
+ * sets pda->currentState to start state
  */
-int pda_checkStartState(Pda *pda){
+int pda_setStartState(Pda *pda){
     // check if there is a start state (0)
     int *zero = calloc(1,sizeof(int));
     *zero = 0;
     State *start = (State*)table_lookup(pda->pdaStateTable, zero);
 
     if(start){
+        // Start state found, will be set as currentState
+        pda->currentState = (State*)table_lookup(pda->pdaStateTable, zero);
         free(zero);
         return 1;
     } else {
         free(zero);
         return 0;
     }
-
 }
 
+/*
+ * pda_getNewState
+ *
+ * Function to check which transition of a state to take
+ *
+ * input:   - State *currentState
+ *          - char *current input
+ *          - State *nextState
+ *
+ * return   - int 0 if succeeded
+ *
+ */
+int pda_getNewState(Pda *pda){
+ return 0;
+}
