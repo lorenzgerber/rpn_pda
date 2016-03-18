@@ -61,9 +61,13 @@ int *pda_execute(Pda *pda, char *input){
 
 
     /*
-     * Check Length of input
+     * Register input and input length
+     * to pda
      */
-    int inputLength = (int)strlen(input);
+    pda->input = input;
+    pda->inputLeft = (int)strlen(pda->input);
+
+
 
     /*
      * Set start state
@@ -73,14 +77,12 @@ int *pda_execute(Pda *pda, char *input){
         return 0;
     }
 
+    pda_getPossibleTransition(pda);
 
     /*
-     * set current intput
-     */
-    int inputPos = 0;
-
     // Get first position in transitions dlist of start state
-    dlist_position currentTransPos = dlist_first(pda->currentState->transitions);
+    dlist_position currentTransPos;
+    currentTransPos = dlist_first(pda->currentState->transitions);
 
 
 
@@ -165,15 +167,22 @@ int *pda_execute(Pda *pda, char *input){
         currentTransPos = dlist_next(pda->currentState->transitions, currentTransPos);
     }
 
-    // announce the next transition
+    // set the possible transition
     if(transMainCheckFlag){
         printf("The next transition is Nr. %d in the list", nextTransition);
+        currentTransPos = dlist_first(pda->currentState->transitions);
+        for(int iii = 0; iii < nextTransition; iii++){
+            currentTransPos = dlist_next(pda->currentState->transitions, currentTransPos);
+        }
+        pda->possibleTransition = (Transition*)currentTransPos;
+
     } else {
         printf("No viable transition found!!!\n");
         return 0;
     }
-
+     */
     return 0;
+
 }
 
 
@@ -212,6 +221,116 @@ int pda_setStartState(Pda *pda){
  * return   - int 0 if succeeded
  *
  */
-int pda_getNewState(Pda *pda){
- return 0;
+int pda_getPossibleTransition(Pda *pda){
+
+
+    /*
+     * define and set some variables
+     *
+     */
+
+    int transMainCheckFlag = 0;
+    int transReadCheckFlag = 0;
+    int transPopCheckFlag = 0;
+    int transPushCheckFlag = 0;
+    int transNumberCounter = 1;
+    int nextTransition = 0;
+
+    // Get first transition
+    dlist_position currentTransPos = dlist_first(pda->currentState->transitions);
+    Transition *currentTransition = state_getFirstTransition(pda->currentState);
+
+    // Loop through transitions until last position
+    while(!dlist_isEnd(pda->currentState->transitions, currentTransPos)){
+
+        // set Read, Pop and Push Check flag to zero
+        transReadCheckFlag = 0;
+        transPopCheckFlag = 0;
+        transPushCheckFlag = 0;
+
+
+        // Access current Transition
+        Transition *currentTransition;
+        currentTransition = (Transition*)dlist_inspect(pda->currentState->transitions, currentTransPos);
+        printf("%s\n", currentTransition->description);
+
+
+        // check for read condition
+        if(transition_checkReadEpsilon(currentTransition)) {
+            transReadCheckFlag = 1;
+        } else {
+            if(transition_checkRead(currentTransition, *pda->input)){
+                printf("checkRead is OK\n");
+                transReadCheckFlag = 1;
+            } else {
+                printf("checkRead fail\n");
+            }
+        }
+
+        // check for pop condition
+        if(transition_checkPopEpsilon(currentTransition)) {
+            transPopCheckFlag = 1;
+        } else {
+            if(!stack_isEmpty(pda->pdaStack)){
+                if(transition_checkPop(currentTransition,
+                                       *(int*)stack_top(pda->pdaStack))){
+                    printf("checkPop is OK\n");
+                    transPopCheckFlag = 1;
+                } else {
+                    printf("checkPop fail\n");
+                }
+
+            } else {
+                printf("checkPop fail, stack empty\n");
+            }
+
+        }
+
+
+        //Check the push condition
+        if(!transition_checkPushEpsilon(currentTransition)){
+            transPushCheckFlag = 1;
+            if(transition_checkPush(currentTransition)==256){
+                printf("we push from input to stack\n");
+                transPushCheckFlag = 1;
+            }
+        }
+
+        // Check if all conditions met
+        if (transReadCheckFlag + transPopCheckFlag + transPushCheckFlag == 3){
+            if(transMainCheckFlag == 1){
+                printf("pda is non-deterministic - "
+                               "two viable transitions found");
+            }
+            transMainCheckFlag = 1;
+            nextTransition = transNumberCounter;
+        }
+
+        // keep count of which transition in the list we look at
+        transNumberCounter++;
+
+
+        // go to next transition
+        currentTransPos = dlist_next(pda->currentState->transitions, currentTransPos);
+    }
+
+    // announce the next transition
+    if(transMainCheckFlag){
+        printf("The next transition is Nr. %d in the list", nextTransition);
+        currentTransPos = dlist_first(pda->currentState->transitions);
+        for(int iii = 0; iii < nextTransition; iii++){
+            currentTransPos = dlist_next(pda->currentState->transitions, currentTransPos);
+        }
+        pda->possibleTransition = currentTransPos->data;
+
+
+    } else {
+        printf("No viable transition found!!!\n");
+        return 0;
+    }
+
+
+
+    return 0;
+
 }

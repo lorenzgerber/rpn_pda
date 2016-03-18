@@ -69,3 +69,11 @@ void * state_addTransition(State * state,
 int state_getId(State * state){
     return state->id;
 }
+
+/*
+ * get first transition
+ */
+Transition *state_getFirstTransition(State * state){
+    Transition *temp =  (Transition*)dlist_inspect(state->transitions, dlist_first(state->transitions));
+    return temp;
+}

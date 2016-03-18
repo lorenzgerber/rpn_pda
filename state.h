@@ -39,4 +39,10 @@ void * state_addTransition(State * state,
  */
 int state_getId(State * state);
 
+/*
+ * get first transition
+ */
+Transition *state_getFirstTransition(State * state);
+
+
 #endif /*STATE*/
