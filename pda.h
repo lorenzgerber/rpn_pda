@@ -62,5 +62,10 @@ int pda_setStartState(Pda *pda);
  */
 int pda_getPossibleTransition(Pda *pda);
 
+/*
+ * function to do transition
+ */
+int pda_doTransition(Pda *pda);
+
 
 #endif /*PDA*/

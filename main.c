@@ -32,9 +32,10 @@ int main(int argc, char **argv) {
 
 
     // Test creating transitions
+    // Comment, source, dest, read, pop, push
     Transition *trans1 = transition_create("this is the transition from a to b",0, 1, isdigit, NULL, pushInput);
-    Transition *trans2 = transition_create("this is the transition from b to c",0, 1, isdigit, isdigit, pushInput);
-    Transition *trans3 = transition_create("this is the transition fron c to d",0, 1, isdigit, isdigit, isdigit);
+    Transition *trans2 = transition_create("this is the transition from b to c",0, 2, isdigit, isdigit, pushInput);
+    Transition *trans3 = transition_create("this is the transition fron c to d",1, 2, NULL, isdigit, pushInput);
 
 
 
