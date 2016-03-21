@@ -6,6 +6,7 @@
 
 #include <stdbool.h>
 #include <ctype.h>
+#include <stdio.h>
 
 
 /*
@@ -17,6 +18,18 @@ int isOperator(char toCheck){
         return 1;
     }
     return 0;
+}
+
+/*
+ * Function that checks for a blank.
+ */
+int isBlank(char toCheck){
+    if(toCheck == 32){
+        printf("This is a blank\n");
+        return 1;
+    }
+    return 0;
+
 }
 
 /*

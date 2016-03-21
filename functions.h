@@ -22,3 +22,8 @@ int isEpsilon(char toCheck);
  * Function that returns the argument
  */
 int pushInput(int);
+
+/*
+ * Function that checks for a blank.
+ */
+int isBlank(int toCheck);

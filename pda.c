@@ -64,6 +64,7 @@ int *pda_execute(Pda *pda, char *input){
      * Register input and input length
      * to pda
      */
+
     pda->input = input;
     pda->inputLeft = (int)strlen(pda->input);
 
@@ -77,6 +78,14 @@ int *pda_execute(Pda *pda, char *input){
         return 0;
     }
 
+
+    while(pda->bailout == false && pda->succeed == false){
+        pda_getPossibleTransition(pda);
+        if(pda->bailout == false && pda->succeed == false){
+            pda_doTransition(pda);
+        }
+    }
+    /*
     // Find the next possible transition
     pda_getPossibleTransition(pda);
 
@@ -85,6 +94,10 @@ int *pda_execute(Pda *pda, char *input){
 
     // Find the next possible transition
     pda_getPossibleTransition(pda);
+
+    // Do transition
+    pda_doTransition(pda);
+     */
 
 
 
@@ -119,13 +132,14 @@ int pda_setStartState(Pda *pda){
 }
 
 /*
- * pda_getNewState
+ * pda_getPossibleTransition
  *
- * Function to check which transition of a state to take
+ * Function that checks the next transition to take. If two transitions
+ * are possible, the function set's the bailout flag in the pda as the
+ * current implementation supports just deterministic pda's.
  *
  * input:   - State *currentState
  *          - char *current input
- *          - State *nextState
  *
  * return   - int 0 if succeeded
  *
@@ -209,6 +223,9 @@ int pda_getPossibleTransition(Pda *pda){
             if(transMainCheckFlag == 1){
                 printf("pda is non-deterministic - "
                                "two viable transitions found");
+
+                // set bailout true to stop the processing
+                pda->bailout = true;
             }
             transMainCheckFlag = 1;
             nextTransition = transNumberCounter;
@@ -234,6 +251,14 @@ int pda_getPossibleTransition(Pda *pda){
 
     } else {
         printf("No viable transition found!!!\n");
+        if(pda->currentState->accepted==true){
+            if(pda->inputLeft==0){
+                pda->succeed = true;
+            }
+            pda->bailout = true;
+        } else {
+            pda->bailout = true;
+        }
         return 0;
     }
 
@@ -269,7 +294,8 @@ int pda_doTransition(Pda *pda){
     if(!transition_checkPushEpsilon(pda->possibleTransition)){
         if(transition_checkPush(pda->possibleTransition)==256){
             printf("We're pushing %c from input to stack\n", pda->input[0]);
-            stack_push(pda->pdaStack, &pda->input[0]);
+            char *pusherHandle = calloc(1, sizeof(char));
+            stack_push(pda->pdaStack, pusherHandle);
         }
     }
 

@@ -15,9 +15,10 @@ typedef struct {
     Table *pdaStateTable;
     stack *pdaStack;
     State *currentState;
-    State *nextState;
     Transition *possibleTransition;
     char *input;
+    bool bailout;
+    bool succeed;
     int inputLeft;
     memFreeFunc *freeFunc;
 } Pda;
@@ -55,7 +56,6 @@ int pda_setStartState(Pda *pda);
  *
  * input:   - State *currentState
  *          - char *current input
- *          - State *nextState
  *
  * return   - int 0 if succeeded
  *
