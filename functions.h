@@ -33,3 +33,13 @@ int isBlank(int toCheck);
  * if inputLeft = zero, function returns true
  */
 int isTerminal(int inputLeft);
+
+/*
+ * Function that returns the int value ofa a '$' char
+ */
+int dollarSymbol(int notUser);
+
+/*
+ * Function that returns the int value ofa a '$' char
+ */
+int isDollarSymbol(int toCheck);

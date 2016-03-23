@@ -13,7 +13,7 @@
  * Function that checks for operator. If the provided argument
  * is one of the four base operators, the function returns 1
  */
-int isOperator(char toCheck){
+int isOperator(int toCheck){
     if(toCheck == 42 || toCheck == 43 || toCheck == 45 || toCheck == 47){
         return 1;
     }
@@ -39,6 +39,9 @@ int isEpsilon(char notUsed){
     return 1;
 }
 
+/*
+ * Function that returns the argument
+ */
 int pushInput(int notUsed){
     return 256;
 }
@@ -49,6 +52,25 @@ int pushInput(int notUsed){
 int isTerminal(int inputLeft){
     if(inputLeft == 0){
         printf("input is empty/used up");
+        return 1;
+    }
+    return 0;
+}
+
+
+/*
+ * Function that returns the int value ofa a '$' char
+ */
+int dollarSymbol(int notUser){
+    return 36;
+}
+
+/*
+ * Function that returns the int value ofa a '$' char
+ */
+int isDollarSymbol(int toCheck){
+    if(toCheck == 36){
+        printf("This is a Dollar Sign\n");
         return 1;
     }
     return 0;
