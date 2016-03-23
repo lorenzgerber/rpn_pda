@@ -42,3 +42,14 @@ int isEpsilon(char notUsed){
 int pushInput(int notUsed){
     return 256;
 }
+
+/*
+ * Function to check if input is empty/used up
+ */
+int isTerminal(int inputLeft){
+    if(inputLeft == 0){
+        printf("input is empty/used up");
+        return 1;
+    }
+    return 0;
+}

@@ -27,3 +27,9 @@ int pushInput(int);
  * Function that checks for a blank.
  */
 int isBlank(int toCheck);
+
+/*
+ * Function to check if input is empty/used up
+ * if inputLeft = zero, function returns true
+ */
+int isTerminal(int inputLeft);
