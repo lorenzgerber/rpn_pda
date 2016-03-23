@@ -85,23 +85,6 @@ int *pda_execute(Pda *pda, char *input){
             pda_doTransition(pda);
         }
     }
-    /*
-    // Find the next possible transition
-    pda_getPossibleTransition(pda);
-
-    // Do transition
-    pda_doTransition(pda);
-
-    // Find the next possible transition
-    pda_getPossibleTransition(pda);
-
-    // Do transition
-    pda_doTransition(pda);
-     */
-
-
-
-
 
     return 0;
 
@@ -271,8 +254,23 @@ int pda_getPossibleTransition(Pda *pda){
  */
 int pda_doTransition(Pda *pda){
 
+    /*
+     * Pop stack a,B->c
+     * ----------------
+     *
+     * If epsilon:
+     * - nothing happens, no check, no pop
+     *   even if stack empty no bail-out is thrown
+     *
+     * If stack alphabet function:
+     * - if stack empty, throw bail-out
+     * - if stack alphabet function returns true, pop
+     * - if stack alphabet function returns false: do nothing.
+     *   Currently keep this. In the future should be possible
+     *   to remove as this case should not happen because checked
+     *   in get_possibleTransition().
+     */
 
-    // pop stack
     if(!transition_checkPopEpsilon(pda->possibleTransition)) {
         if(!stack_isEmpty(pda->pdaStack)){
             if(transition_checkPop(pda->possibleTransition,
@@ -290,7 +288,21 @@ int pda_doTransition(Pda *pda){
     }
 
 
-    // push to stack
+    /*
+     * push to stack, a,b->C
+     * ---------------------
+     *
+     * If epsilon:
+     * - do nothing
+     *
+     * If push function returns value 0-255:
+     * - push the corresponding ascii char to the
+     *   the stack
+     *
+     * If push function returns 256:
+     * - push the current input char to the stack
+     *
+     */
     if(!transition_checkPushEpsilon(pda->possibleTransition)){
         if(transition_checkPush(pda->possibleTransition)==256){
             printf("We're pushing %c from input to stack\n", pda->input[0]);
@@ -299,6 +311,23 @@ int pda_doTransition(Pda *pda){
         }
     }
 
+    /*
+     * Read transition A,b->c
+     * ----------------------
+     *
+     * If epsilon:
+     * - do nothing
+     *
+     * If current input alphabet function returns true:
+     * - move pointer on input char array and reduce
+     *   inputLeft variable by one.
+     *
+     * If current input alphabet function returns false:
+     * - do nothing. This can be removed later as it should
+     *   not happen. Should be checked already in
+     *   get_possibleTransition() function
+     *
+     */
     if(!transition_checkReadEpsilon(pda->possibleTransition)) {
         if(transition_checkRead(pda->possibleTransition, pda->input[0])){
             printf("checkRead is OK\n");
