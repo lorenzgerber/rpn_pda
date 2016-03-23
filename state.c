@@ -45,8 +45,10 @@ bool state_isEmpty(State *state) {
 void * state_addTransition(State * state,
                             Transition * transition) {
     dlist_position list_pos;
+    /*
     if (dlist_isEmpty(state->transitions))
         printf("in state_addTransition. empty if this text shows\n");
+    */
 
     // find last position
     list_pos = dlist_first(state->transitions);
