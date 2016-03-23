@@ -11,7 +11,6 @@
 
 typedef struct {
     char description[255];
-    int sourceState;
     int destState;
     int (*read) (int);
     int (*pop) (int);
@@ -22,7 +21,6 @@ typedef struct {
  * function to create a new transition
  */
 Transition * transition_create(char description[255],
-                               int sourceState,
                                int destState,
                                int (*read) (int),
                                int (*pop) (int),

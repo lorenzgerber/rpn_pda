@@ -12,7 +12,6 @@
  * function to create a new transition
  */
 Transition * transition_create(char description[255],
-                               int sourceState,
                                int destState,
                                int (*read) (int),
                                int (*pop) (int),
@@ -23,7 +22,6 @@ Transition * transition_create(char description[255],
         return NULL;
 
     strcpy(new_transition->description, description);
-    new_transition->sourceState = sourceState;
     new_transition->destState = destState;
     new_transition->read = read;
     new_transition->pop = pop;
