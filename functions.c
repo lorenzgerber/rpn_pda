@@ -23,7 +23,7 @@ int isOperator(int toCheck){
 /*
  * Function that checks for a blank.
  */
-int isBlank(char toCheck){
+int isBlank(int toCheck){
     if(toCheck == 32){
         printf("This is a blank\n");
         return 1;
@@ -35,7 +35,7 @@ int isBlank(char toCheck){
 /*
  * Function used as epsilon condition in transitions
  */
-int isEpsilon(char notUsed){
+int isEpsilon(int notUsed){
     return 1;
 }
 
@@ -51,7 +51,7 @@ int pushInput(int notUsed){
  */
 int isTerminal(int inputLeft){
     if(inputLeft == 0){
-        printf("input is empty/used up");
+        printf("input is empty/used up\n");
         return 1;
     }
     return 0;

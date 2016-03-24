@@ -10,13 +10,13 @@
  * Function that checks for operator. If the provided argument
  * is one of the four base operators, the function returns 1
  */
-int isOperator(char toCheck);
+int isOperator(int toCheck);
 
 
 /*
  * Function used as epsilon condition in transitions
  */
-int isEpsilon(char toCheck);
+int isEpsilon(int toCheck);
 
 /*
  * Function that returns the argument
