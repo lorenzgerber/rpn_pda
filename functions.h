@@ -43,3 +43,8 @@ int dollarSymbol(int notUser);
  * Function that returns the int value ofa a '$' char
  */
 int isDollarSymbol(int toCheck);
+
+/*
+ * Function that returns the int value of a blank char
+ */
+int blankChar(int notUsed);

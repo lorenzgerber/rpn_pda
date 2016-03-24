@@ -25,7 +25,7 @@ int isOperator(int toCheck){
  */
 int isBlank(int toCheck){
     if(toCheck == 32){
-        printf("This is a blank\n");
+        //printf("This is a blank\n");
         return 1;
     }
     return 0;
@@ -51,7 +51,7 @@ int pushInput(int notUsed){
  */
 int isTerminal(int inputLeft){
     if(inputLeft == 0){
-        printf("input is empty/used up\n");
+        //printf("input is empty/used up\n");
         return 1;
     }
     return 0;
@@ -61,17 +61,24 @@ int isTerminal(int inputLeft){
 /*
  * Function that returns the int value ofa a '$' char
  */
-int dollarSymbol(int notUser){
+int dollarSymbol(int notUsed){
     return 36;
 }
 
 /*
- * Function that returns the int value ofa a '$' char
+ * Function that checks for a '$' char
  */
 int isDollarSymbol(int toCheck){
     if(toCheck == 36){
-        printf("This is a Dollar Sign\n");
+        //printf("This is a Dollar Sign\n");
         return 1;
     }
     return 0;
+}
+
+/*
+ * Function that returns the int value of a blank char
+ */
+int blankChar(int notUsed){
+    return 32;
 }

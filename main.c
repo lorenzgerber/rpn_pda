@@ -44,12 +44,12 @@ int main(int argc, char **argv) {
     Transition *trans_03 = transition_create("3, N,e->I", 2, isdigit, NULL, pushInput);
     Transition *trans_04 = transition_create("4, O,e->e", 4, isOperator, NULL, NULL);
     Transition *trans_05 = transition_create("5, B,e->I", 3, isBlank, NULL, pushInput);
-    Transition *trans_06 = transition_create("6, T,B->e", 6, isTerminal, isBlank, NULL);
+    Transition *trans_06 = transition_create("6, T,B->e", 6, isTerminal, NULL, NULL);
     Transition *trans_07 = transition_create("7, O,B->e", 4, isOperator, isBlank, NULL);
-    Transition *trans_08 = transition_create("8, T,N->e", 6, isTerminal, isdigit, NULL);
+    Transition *trans_08 = transition_create("8, T,N->e", 6, isTerminal, isBlank, NULL);
     Transition *trans_09 = transition_create("9, e,N->e", 4, NULL, isdigit, NULL);
     Transition *trans_10 = transition_create("10, e,B->e", 5, NULL, isBlank, NULL);
-    Transition *trans_11 = transition_create("11, e,e->B", 3, NULL, NULL, isBlank);
+    Transition *trans_11 = transition_create("11, e,e->B", 3, NULL, NULL, blankChar);
     Transition *trans_12 = transition_create("12, e,N->e", 6, NULL, isdigit, NULL);
     Transition *trans_13 = transition_create("13, e,$->e", 7, NULL, isDollarSymbol, NULL);
 
@@ -90,7 +90,7 @@ int main(int argc, char **argv) {
     if(argc <= 1){
         return wrongArgs();
     }
-    printf("%s\n", argv[1]);
+    //printf("%s\n", argv[1]);
 
 
     /*

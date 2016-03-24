@@ -83,6 +83,9 @@ int *pda_execute(Pda *pda, char *input){
         pda_getPossibleTransition(pda);
         if(pda->bailout == false && pda->succeed == false){
             pda_doTransition(pda);
+            printf("From State %d, done transition %s\n", pda->currentState->id, pda->possibleTransition->description);
+            printf("input %c\n", pda->input[0]);
+            printf("bailout %d, succeed %d\n", pda->bailout, pda->succeed);
         }
     }
 
@@ -157,7 +160,7 @@ int pda_getPossibleTransition(Pda *pda){
         // Access current Transition
         Transition *currentTransition;
         currentTransition = (Transition*)dlist_inspect(pda->currentState->transitions, currentTransPos);
-        printf("%s\n", currentTransition->description);
+        //printf("%s\n", currentTransition->description);
 
 
         // check for read condition
@@ -165,10 +168,10 @@ int pda_getPossibleTransition(Pda *pda){
             transReadCheckFlag = 1;
         } else {
             if(transition_checkRead(currentTransition, *pda->input)){
-                printf("checkRead is OK\n");
+                //printf("checkRead is OK\n");
                 transReadCheckFlag = 1;
             } else {
-                printf("checkRead fail\n");
+                //printf("checkRead fail\n");
             }
         }
 
@@ -179,14 +182,14 @@ int pda_getPossibleTransition(Pda *pda){
             if(!stack_isEmpty(pda->pdaStack)){
                 if(transition_checkPop(currentTransition,
                                        *(int*)stack_top(pda->pdaStack))){
-                    printf("checkPop is OK\n");
+                    //printf("checkPop is OK\n");
                     transPopCheckFlag = 1;
                 } else {
-                    printf("checkPop fail\n");
+                    //printf("checkPop fail\n");
                 }
 
             } else {
-                printf("checkPop fail, stack empty\n");
+                //printf("checkPop fail, stack empty\n");
             }
 
         }
@@ -226,7 +229,7 @@ int pda_getPossibleTransition(Pda *pda){
 
     // announce the next transition
     if(transMainCheckFlag){
-        printf("The next transition is Nr. %d in the list\n", nextTransition);
+        //printf("The next transition is Nr. %d in the list\n", nextTransition);
         currentTransPos = dlist_first(pda->currentState->transitions);
         for(int iii = 0; iii < nextTransition; iii++){
             currentTransPos = dlist_next(pda->currentState->transitions, currentTransPos);
@@ -277,14 +280,14 @@ int pda_doTransition(Pda *pda){
         if(!stack_isEmpty(pda->pdaStack)){
             if(transition_checkPop(pda->possibleTransition,
                                    *(int*)stack_top(pda->pdaStack))){
-                printf("checkPop is OK\n");
+                //printf("checkPop is OK\n");
                 stack_pop(pda->pdaStack);
             } else {
-                printf("checkPop fail\n");
+                //printf("checkPop fail\n");
             }
 
         } else {
-            printf("checkPop fail, stack empty\n");
+            //printf("checkPop fail, stack empty\n");
         }
 
     }
@@ -307,12 +310,12 @@ int pda_doTransition(Pda *pda){
      */
     if(!transition_checkPushEpsilon(pda->possibleTransition)){
         if(transition_checkPush(pda->possibleTransition)==256){
-            printf("We're pushing %c from input to stack\n", pda->input[0]);
+            //printf("We're pushing %c from input to stack\n", pda->input[0]);
             int *pusherHandle = calloc(1, sizeof(char));
             *pusherHandle = (int)pda->input[0];
             stack_push(pda->pdaStack, pusherHandle);
         } else {
-            printf("We're pushing a specific char from the alphabet\n");
+            //printf("We're pushing a specific char from the alphabet\n");
             int *pusherHandle = calloc(1, sizeof(char));
             *pusherHandle = transition_checkPush(pda->possibleTransition);
             stack_push(pda->pdaStack, pusherHandle);
@@ -338,11 +341,11 @@ int pda_doTransition(Pda *pda){
      */
     if(!transition_checkReadEpsilon(pda->possibleTransition)) {
         if(transition_checkRead(pda->possibleTransition, pda->input[0])){
-            printf("checkRead is OK\n");
+            //printf("checkRead is OK\n");
             pda->input = &pda->input[1];
             pda->inputLeft--;
         } else {
-            printf("checkRead fail\n");
+            //printf("checkRead fail\n");
         }
     }
 
