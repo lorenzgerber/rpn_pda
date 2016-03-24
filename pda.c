@@ -151,7 +151,7 @@ int pda_getPossibleTransition(Pda *pda){
         // set Read, Pop and Push Check flag to zero
         transReadCheckFlag = 0;
         transPopCheckFlag = 0;
-        transPushCheckFlag = 0;
+        //transPushCheckFlag = 0;
 
 
         // Access current Transition
@@ -193,16 +193,18 @@ int pda_getPossibleTransition(Pda *pda){
 
 
         //Check the push condition
-        if(!transition_checkPushEpsilon(currentTransition)){
+
+        /*if(transition_checkPushEpsilon(currentTransition)) {
             transPushCheckFlag = 1;
+        } else {
             if(transition_checkPush(currentTransition)==256){
                 printf("we push from input to stack\n");
                 transPushCheckFlag = 1;
             }
-        }
+        }*/
 
         // Check if all conditions met
-        if (transReadCheckFlag + transPopCheckFlag + transPushCheckFlag == 3){
+        if (transReadCheckFlag + transPopCheckFlag == 2){
             if(transMainCheckFlag == 1){
                 printf("pda is non-deterministic - "
                                "two viable transitions found");
@@ -306,7 +308,13 @@ int pda_doTransition(Pda *pda){
     if(!transition_checkPushEpsilon(pda->possibleTransition)){
         if(transition_checkPush(pda->possibleTransition)==256){
             printf("We're pushing %c from input to stack\n", pda->input[0]);
-            char *pusherHandle = calloc(1, sizeof(char));
+            int *pusherHandle = calloc(1, sizeof(char));
+            *pusherHandle = (int)pda->input[0];
+            stack_push(pda->pdaStack, pusherHandle);
+        } else {
+            printf("We're pushing a specific char from the alphabet\n");
+            int *pusherHandle = calloc(1, sizeof(char));
+            *pusherHandle = transition_checkPush(pda->possibleTransition);
             stack_push(pda->pdaStack, pusherHandle);
         }
     }
