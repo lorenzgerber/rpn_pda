@@ -35,10 +35,8 @@ Transition * transition_create(char description[255],
  * function to check if read is NULL hence Epsilon
  */
 int transition_checkReadEpsilon(Transition * transition){
-    if(*transition->read == NULL){
-        //printf("Read Transition is epsilon\n");
+    if(*transition->read == NULL)
         return 1;
-    }
     return 0;
 }
 
@@ -46,10 +44,8 @@ int transition_checkReadEpsilon(Transition * transition){
  * function to check if pop is NULL hence Epsilon
  */
 int transition_checkPopEpsilon(Transition * transition){
-    if(*transition->pop == NULL){
-        //printf("Pop Transition is epsilon\n");
+    if(*transition->pop == NULL)
         return 1;
-    }
     return 0;
 }
 
@@ -57,10 +53,8 @@ int transition_checkPopEpsilon(Transition * transition){
  * function to check if push is NULL hence Epsilon
  */
 int transition_checkPushEpsilon(Transition * transition){
-    if(*transition->push == NULL){
-        //printf("Push Transition is epsilon\n");
+    if(*transition->push == NULL)
         return 1;
-    }
     return 0;
 }
 

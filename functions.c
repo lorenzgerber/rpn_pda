@@ -14,9 +14,8 @@
  * is one of the four base operators, the function returns 1
  */
 int isOperator(int toCheck){
-    if(toCheck == 42 || toCheck == 43 || toCheck == 45 || toCheck == 47){
+    if(toCheck == 42 || toCheck == 43 || toCheck == 45 || toCheck == 47)
         return 1;
-    }
     return 0;
 }
 
@@ -24,10 +23,8 @@ int isOperator(int toCheck){
  * Function that checks for a blank.
  */
 int isBlank(int toCheck){
-    if(toCheck == 32){
-        //printf("This is a blank\n");
+    if(toCheck == 32)
         return 1;
-    }
     return 0;
 
 }
@@ -50,10 +47,8 @@ int pushInput(int notUsed){
  * Function to check if input is empty/used up
  */
 int isTerminal(int inputLeft){
-    if(inputLeft == 0){
-        //printf("input is empty/used up\n");
+    if(inputLeft == 0)
         return 1;
-    }
     return 0;
 }
 
@@ -69,10 +64,8 @@ int dollarSymbol(int notUsed){
  * Function that checks for a '$' char
  */
 int isDollarSymbol(int toCheck){
-    if(toCheck == 36){
-        //printf("This is a Dollar Sign\n");
+    if(toCheck == 36)
         return 1;
-    }
     return 0;
 }
 
