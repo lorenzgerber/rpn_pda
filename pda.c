@@ -1,5 +1,5 @@
 /*
- * This datatype was designed and implemented for an assignment in course DV2: 
+ * This datatype was designed and implemented for an assignment in course DV2:
  * Algorithms and problemsolving 7.5 p, 5DV169
  */
 
@@ -17,7 +17,7 @@
  */
 Pda *pda_create()
 {
-    Pda *pda = calloc(sizeof (Pda),1);
+    Pda *pda = calloc(sizeof(Pda),1);
     if (!pda)
         return NULL;
 

@@ -3,12 +3,15 @@
  * course DV2: Algorithms and problemsolving 7.5 p, 5DV169
  */
 
+#include "rpn.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include "pda.h"
 #include <ctype.h>
 #include "dlist.h"
 #include "functions.h"
+#include <string.h>
+
 
 int wrongArgs(void);
 
@@ -94,10 +97,18 @@ int main(int argc, char **argv) {
     }
 
     /*
+     * make copy of input string for rpn calculation
+     */
+    char *rpn_input = calloc(strlen(argv[1]),sizeof(char));
+    strcpy(rpn_input, argv[1]);
+
+    /*
      * actual pda exectuion
      */
 
     pda_execute(rpn_pda, argv[1]);
+
+    rpn_calc(rpn_input);
 
     return 0;
 }
