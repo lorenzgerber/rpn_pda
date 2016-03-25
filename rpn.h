@@ -28,8 +28,15 @@ typedef struct {
 int *rpn_calc(char *input);
 
 
-
-
+/*
+ * creating a lookup table and functions
+ * to parse char operators
+ */
+int (*ops[6])(int, int);
+int mul(int f, int s);
+int plus(int f, int s);
+int sub(int f, int s);
+int divi(int f, int s);
 
 
 #endif /*RPN*/
