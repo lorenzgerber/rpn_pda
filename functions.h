@@ -32,7 +32,7 @@ int isBlank(int toCheck);
  * Function to check if input is empty/used up
  * if inputLeft = zero, function returns true
  */
-int isTerminal(int inputLeft);
+int isTerminal(int input);
 
 /*
  * Function that returns the int value ofa a '$' char

@@ -46,8 +46,8 @@ int pushInput(int notUsed){
 /*
  * Function to check if input is empty/used up
  */
-int isTerminal(int inputLeft){
-    if(inputLeft == 0)
+int isTerminal(int input){
+    if(input == 4)
         return 1;
     return 0;
 }

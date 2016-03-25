@@ -59,12 +59,7 @@ int *pda_execute(Pda *pda, char *input){
      * INITIALIZE PDA EVALUATION
      */
 
-
-    /*
-     * Register input and input length
-     * to pda
-     */
-
+    // Register input and input length to pda
     pda->input = input;
     pda->inputLeft = (int)strlen(pda->input);
 
@@ -216,12 +211,14 @@ int pda_getPossibleTransition(Pda *pda){
     } else {
         printf("No viable transition found!!!\n");
         if(pda->currentState->accepted==true){
-            if(pda->inputLeft==0){
+            if(pda->inputLeft <= 0){
                 pda->succeed = true;
             }
             pda->bailout = true;
+            printf("Current State 'accepted' SUCCESS!\n");
         } else {
             pda->bailout = true;
+            printf("Current State 'not accepted' FAIL!\n");
         }
         return 0;
     }
@@ -298,7 +295,9 @@ int pda_doTransition(Pda *pda){
      *
      * If current input alphabet function returns true:
      * - move pointer on input char array and reduce
-     *   inputLeft variable by one.
+     *   inputLeft variable by one. This needs an exception,
+     *   if it is successfully checked for empty input, nothing
+     *   shuold be done.
      *
      * If current input alphabet function returns false:
      * - do nothing. This can be removed later as it should
@@ -308,8 +307,23 @@ int pda_doTransition(Pda *pda){
      */
     if(!transition_checkReadEpsilon(pda->possibleTransition)) {
         if(transition_checkRead(pda->possibleTransition, pda->input[0])){
-            pda->input = &pda->input[1];
-            pda->inputLeft--;
+
+            /*
+             * Handling too special 'edge' cases:
+             * 1 input left, 0 input left
+             *
+             * This case is possible when input is
+             * checked for 'finshed/terminal'
+             */
+            if(pda->inputLeft == 1) {
+                pda->input[0] = (char)4;
+                pda->inputLeft = 0;
+            }
+
+            if(pda->inputLeft > 0) {
+                pda->input = &pda->input[1];
+                pda->inputLeft--;
+            }
         }
     }
 

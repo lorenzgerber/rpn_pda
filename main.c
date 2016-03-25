@@ -37,24 +37,25 @@ int main(int argc, char **argv) {
     State *seventh = state_create(7, true, "success");
 
 
-    // Test creating transitions
+    // Creating transitions to check for RPN
     // Comment, source, dest, read, pop, push
     Transition *trans_01 = transition_create("1, e,e->$", 1, NULL, NULL, dollarSymbol);
     Transition *trans_02 = transition_create("2, B,e->e", 1, isBlank, NULL, NULL);
     Transition *trans_03 = transition_create("3, N,e->I", 2, isdigit, NULL, pushInput);
     Transition *trans_04 = transition_create("4, O,e->e", 4, isOperator, NULL, NULL);
     Transition *trans_05 = transition_create("5, B,e->I", 3, isBlank, NULL, pushInput);
-    Transition *trans_06 = transition_create("6, T,B->e", 6, isTerminal, NULL, NULL);
+    Transition *trans_06 = transition_create("6, T,N->e", 6, isTerminal, NULL, NULL);
     Transition *trans_07 = transition_create("7, O,B->e", 4, isOperator, isBlank, NULL);
-    Transition *trans_08 = transition_create("8, T,N->e", 6, isTerminal, isBlank, NULL);
+    Transition *trans_08 = transition_create("8, T,B->e", 6, isTerminal, isBlank, NULL);
     Transition *trans_09 = transition_create("9, e,N->e", 4, NULL, isdigit, NULL);
     Transition *trans_10 = transition_create("10, e,B->e", 5, NULL, isBlank, NULL);
     Transition *trans_11 = transition_create("11, e,e->B", 3, NULL, NULL, blankChar);
     Transition *trans_12 = transition_create("12, e,N->e", 6, NULL, isdigit, NULL);
     Transition *trans_13 = transition_create("13, e,$->e", 7, NULL, isDollarSymbol, NULL);
+    Transition *trans_14 = transition_create("14, B,e->e", 3, isBlank, NULL, NULL);
 
 
-    // Test adding transitions to state
+    // Adding transitions to state
     state_addTransition(start, trans_01);
     state_addTransition(first, trans_02);
     state_addTransition(first, trans_03);
@@ -65,13 +66,14 @@ int main(int argc, char **argv) {
     state_addTransition(third, trans_03);
     state_addTransition(third, trans_07);
     state_addTransition(third, trans_08);
+    state_addTransition(third, trans_14);
     state_addTransition(fourth, trans_09);
     state_addTransition(fourth, trans_10);
     state_addTransition(fifth, trans_11);
     state_addTransition(sixth, trans_12);
     state_addTransition(sixth, trans_13);
 
-    // Test adding state to pda
+    // Adding states to pda
     pda_addState(rpn_pda, start);
     pda_addState(rpn_pda, first);
     pda_addState(rpn_pda, second);
