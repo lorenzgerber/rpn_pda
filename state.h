@@ -24,8 +24,6 @@ typedef struct {
 State * state_create(int id, bool accepted,
                      char description[255]);
 
-bool state_isEmpty(State *state);
-
 
 /*
  * function to add a transition to the current state
@@ -34,15 +32,6 @@ void * state_addTransition(State * state,
                             Transition * transition
 );
 
-/*
- * function that returns the id of a state
- */
-int state_getId(State * state);
-
-/*
- * get first transition
- */
-Transition *state_getFirstTransition(State * state);
 
 
 #endif /*STATE*/

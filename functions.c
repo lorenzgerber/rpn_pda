@@ -4,10 +4,6 @@
  */
 
 
-#include <stdbool.h>
-#include <ctype.h>
-#include <stdio.h>
-
 
 /*
  * Function that checks for operator. If the provided argument

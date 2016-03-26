@@ -69,7 +69,7 @@ int *pda_execute(Pda *pda, char *input){
      * Set start state
      */
     if(!pda_setStartState(pda)){
-        printf("There is no start state! \n");
+        //printf("There is no start state! \n");
         return 0;
     }
 
@@ -78,9 +78,9 @@ int *pda_execute(Pda *pda, char *input){
         pda_getPossibleTransition(pda);
         if(pda->bailout == false && pda->succeed == false){
             pda_doTransition(pda);
-            printf("From State %d, done transition %s\n", pda->currentState->id, pda->possibleTransition->description);
-            printf("input %c, input left %d\n", pda->input[0], pda->inputLeft);
-            printf("bailout %d, succeed %d\n", pda->bailout, pda->succeed);
+            //printf("From State %d, done transition %s\n", pda->currentState->id, pda->possibleTransition->description);
+            //printf("input %c, input left %d\n", pda->input[0], pda->inputLeft);
+            //printf("bailout %d, succeed %d\n", pda->bailout, pda->succeed);
         }
     }
 
@@ -181,8 +181,8 @@ int pda_getPossibleTransition(Pda *pda){
         // Check if all conditions met
         if (transReadCheckFlag + transPopCheckFlag == 2){
             if(transMainCheckFlag == 1){
-                printf("pda is non-deterministic - "
-                               "two viable transitions found");
+                //printf("pda is non-deterministic - "
+                //               "two viable transitions found");
 
                 // set bailout true to stop the processing
                 pda->bailout = true;
@@ -209,16 +209,17 @@ int pda_getPossibleTransition(Pda *pda){
 
 
     } else {
-        printf("No viable transition found!!!\n");
+        //printf("No viable transition found!!!\n");
         if(pda->currentState->accepted==true){
             if(pda->inputLeft <= 0){
                 pda->succeed = true;
             }
             pda->bailout = true;
-            printf("Current State 'accepted' SUCCESS!\n");
+            //printf("Current State 'accepted' SUCCESS!\n");
         } else {
             pda->bailout = true;
-            printf("Current State 'not accepted' FAIL!\n");
+            //printf("Current State 'not accepted' FAIL!\n");
+            printf("Invalid expression\n");
         }
         return 0;
     }

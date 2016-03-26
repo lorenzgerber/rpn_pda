@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "state.h"
-#include <stdbool.h>
+
 
 
 /*
@@ -30,14 +30,6 @@ State * state_create(int id, bool accepted,
     return new_state;
 };
 
-/*
- * funciton to check whether a state is empty
- */
-bool state_isEmpty(State *state) {
-    State *st  = state;
-    return dlist_isEmpty(st->transitions);
-}
-
 
 /*
  * function to add a transition to the current state
@@ -45,10 +37,6 @@ bool state_isEmpty(State *state) {
 void * state_addTransition(State * state,
                             Transition * transition) {
     dlist_position list_pos;
-    /*
-    if (dlist_isEmpty(state->transitions))
-        printf("in state_addTransition. empty if this text shows\n");
-    */
 
     // find last position
     list_pos = dlist_first(state->transitions);
@@ -64,18 +52,3 @@ void * state_addTransition(State * state,
     return state;
 
 };
-
-/*
- * function that returns the id of a state
- */
-int state_getId(State * state){
-    return state->id;
-}
-
-/*
- * get first transition
- */
-Transition *state_getFirstTransition(State * state){
-    Transition *temp =  (Transition*)dlist_inspect(state->transitions, dlist_first(state->transitions));
-    return temp;
-}

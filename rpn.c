@@ -116,8 +116,11 @@ int *rpn_calc(char *input){
         rpn->inputLeft--;
         rpn->inputPos++;
     }
-
-    printf("result = %d \n", *(int*)stack_top(rpn->rpnStack));
+    if(rpn->decCount!=0){
+        printf("%d\n", rpn->assemble);
+    } else {
+        printf("%d\n", *(int*)stack_top(rpn->rpnStack));
+    }
     return 0;
 }
 

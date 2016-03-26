@@ -107,8 +107,9 @@ int main(int argc, char **argv) {
      */
 
     pda_execute(rpn_pda, argv[1]);
-
-    rpn_calc(rpn_input);
+    if (rpn_pda->succeed) {
+        rpn_calc(rpn_input);
+    }
 
     return 0;
 }
