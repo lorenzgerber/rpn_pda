@@ -121,6 +121,9 @@ int *rpn_calc(char *input){
     } else {
         printf("%d\n", *(int*)stack_top(rpn->rpnStack));
     }
+    stack_free(rpn->rpnStack);
+    free(rpn);
+
     return 0;
 }
 

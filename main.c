@@ -17,6 +17,11 @@ int wrongArgs(void);
 
 int main(int argc, char **argv) {
 
+    // Check number of command line arguments
+    if(argc <= 1){
+        return wrongArgs();
+    }
+
     /*
      * Defining and Initializing Variables
      */
@@ -44,7 +49,9 @@ int main(int argc, char **argv) {
     // Comment, source, dest, read, pop, push
     Transition *trans_01 = transition_create("1, e,e->$", 1, NULL, NULL, dollarSymbol);
     Transition *trans_02 = transition_create("2, B,e->e", 1, isBlank, NULL, NULL);
-    Transition *trans_03 = transition_create("3, N,e->I", 2, isdigit, NULL, pushInput);
+    Transition *trans_03_1 = transition_create("3, N,e->I", 2, isdigit, NULL, pushInput);
+    Transition *trans_03_2 = transition_create("3, N,e->I", 2, isdigit, NULL, pushInput);
+    Transition *trans_03_3 = transition_create("3, N,e->I", 2, isdigit, NULL, pushInput);
     Transition *trans_04 = transition_create("4, O,e->e", 4, isOperator, NULL, NULL);
     Transition *trans_05 = transition_create("5, B,e->I", 3, isBlank, NULL, pushInput);
     Transition *trans_06 = transition_create("6, T,N->e", 6, isTerminal, NULL, NULL);
@@ -61,12 +68,12 @@ int main(int argc, char **argv) {
     // Adding transitions to state
     state_addTransition(start, trans_01);
     state_addTransition(first, trans_02);
-    state_addTransition(first, trans_03);
-    state_addTransition(second, trans_03);
+    state_addTransition(first, trans_03_1);
+    state_addTransition(second, trans_03_2);
     state_addTransition(second, trans_04);
     state_addTransition(second, trans_05);
     state_addTransition(second, trans_06);
-    state_addTransition(third, trans_03);
+    state_addTransition(third, trans_03_3);
     state_addTransition(third, trans_07);
     state_addTransition(third, trans_08);
     state_addTransition(third, trans_14);
@@ -91,15 +98,12 @@ int main(int argc, char **argv) {
      * Processing input
      */
 
-	// Check number of command line arguments
-    if(argc <= 1){
-        return wrongArgs();
-    }
+
 
     /*
      * make copy of input string for rpn calculation
      */
-    char *rpn_input = calloc(strlen(argv[1]),sizeof(char));
+    char *rpn_input = calloc(strlen(argv[1]),255);
     strcpy(rpn_input, argv[1]);
 
     /*
@@ -109,7 +113,10 @@ int main(int argc, char **argv) {
     pda_execute(rpn_pda, argv[1]);
     if (rpn_pda->succeed) {
         rpn_calc(rpn_input);
+        free(rpn_input);
     }
+
+    pda_free(rpn_pda);
 
     return 0;
 }

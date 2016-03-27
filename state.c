@@ -52,3 +52,12 @@ void * state_addTransition(State * state,
     return state;
 
 };
+
+/*
+ * function to free the allocated memory
+ */
+void state_free(void *state){
+    State *s = (State*)state;
+    dlist_free(s->transitions);
+    free(s);
+}

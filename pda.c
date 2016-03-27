@@ -27,7 +27,7 @@ Pda *pda_create()
     pda->pdaStateTable = table_create(compareInt);
 
     table_setKeyMemHandler(pda->pdaStateTable, free);
-    table_setValueMemHandler(pda->pdaStateTable, free);
+    table_setValueMemHandler(pda->pdaStateTable, state_free);
 
     // initialize stack
     pda->pdaStack = stack_empty();
@@ -335,4 +335,16 @@ int pda_doTransition(Pda *pda){
     pda->currentState = table_lookup(pda->pdaStateTable, newstate);
 
     return 0;
+}
+
+/*
+ * freeing the memory
+ */
+void pda_free(Pda *pda){
+    Pda *p = pda;
+    Table *t = pda->pdaStateTable;
+    table_free(t);
+    stack *s = pda->pdaStack;
+    stack_free(s);
+    free(p);
 }

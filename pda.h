@@ -20,7 +20,6 @@ typedef struct {
     bool bailout;
     bool succeed;
     int inputLeft;
-    memFreeFunc *freeFunc;
 } Pda;
 
 /*
@@ -67,5 +66,9 @@ int pda_getPossibleTransition(Pda *pda);
  */
 int pda_doTransition(Pda *pda);
 
+/*
+ * freeing the memory
+ */
+void pda_free(Pda *pda);
 
 #endif /*PDA*/

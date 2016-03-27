@@ -32,6 +32,11 @@ void * state_addTransition(State * state,
                             Transition * transition
 );
 
+/*
+ * function to free the allocated memory
+ */
+void state_free(void *state);
+
 
 
 #endif /*STATE*/

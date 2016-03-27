@@ -18,7 +18,6 @@ typedef struct {
     int assemble;
     int inputPos;
     int inputLeft;
-    memFreeFunc *freeFunc;
 } Rpn;
 
 
