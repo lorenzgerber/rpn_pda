@@ -71,3 +71,29 @@ int isDollarSymbol(int toCheck){
 int blankChar(int notUsed){
     return 32;
 }
+
+/*
+ * Function that checks for a '(' char
+ */
+int isOpeningBracket(int toCheck){
+    if(toCheck == 40)
+        return 1;
+    return 0;
+}
+
+
+/*
+ * Function that checks for a ')' char
+ */
+int isClosingBracket(int toCheck){
+    if(toCheck == 41)
+        return 1;
+    return 0;
+}
+
+/*
+ * Function that returns the int value ofa a '(' char
+ */
+int openingBracket(int notUsed){
+    return 40;
+}

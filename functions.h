@@ -48,3 +48,19 @@ int isDollarSymbol(int toCheck);
  * Function that returns the int value of a blank char
  */
 int blankChar(int notUsed);
+
+/*
+ * Function that checks for a '(' char
+ */
+int isOpeningBracket(int toCheck);
+
+
+/*
+ * Function that checks for a ')' char
+ */
+int isClosingBracket(int toCheck);
+
+/*
+ * Function that returns the int value ofa a '(' char
+ */
+int openingBracket(int notUsed);
