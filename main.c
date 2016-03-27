@@ -113,8 +113,10 @@ int main(int argc, char **argv) {
     pda_execute(rpn_pda, argv[1]);
     if (rpn_pda->succeed) {
         rpn_calc(rpn_input);
-        free(rpn_input);
+
     }
+
+    free(rpn_input);
 
     pda_free(rpn_pda);
 

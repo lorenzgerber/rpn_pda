@@ -69,7 +69,7 @@ int *rpn_calc(char *input){
 
         if (isdigit(rpn->input[rpn->inputPos])) {
             //printf("this is a digit\n");
-            char *charHandle = calloc(1, sizeof(char));
+            char *charHandle = calloc(2, sizeof(char));
             *charHandle = rpn->input[rpn->inputPos];
             rpn->assemble = rpn->assemble * 10 + atoi(charHandle);
             free(charHandle);
@@ -94,7 +94,6 @@ int *rpn_calc(char *input){
                 *pushHandle = rpn->assemble;
                 //printf("push to stack: %d\n", *pushHandle);
                 stack_push(rpn->rpnStack, pushHandle);
-                //free(pushHandle);
                 rpn->assemble = 0;
                 rpn->decCount = 0;
             }

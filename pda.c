@@ -277,11 +277,11 @@ int pda_doTransition(Pda *pda){
      */
     if(!transition_checkPushEpsilon(pda->possibleTransition)){
         if(transition_checkPush(pda->possibleTransition)==256){
-            int *pusherHandle = calloc(1, sizeof(char));
+            int *pusherHandle = calloc(1, sizeof(int));
             *pusherHandle = (int)pda->input[0];
             stack_push(pda->pdaStack, pusherHandle);
         } else {
-            int *pusherHandle = calloc(1, sizeof(char));
+            int *pusherHandle = calloc(1, sizeof(int));
             *pusherHandle = transition_checkPush(pda->possibleTransition);
             stack_push(pda->pdaStack, pusherHandle);
         }
