@@ -40,7 +40,7 @@ void *pda_addState(Pda *pda, State *state);
 /*
  * Function to execute a pda
  */
-int *pda_execute(Pda *pda, char *input);
+int *pda_execute(Pda *pda, char *input, bool diagnostic);
 
 
 /*

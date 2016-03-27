@@ -22,13 +22,13 @@ typedef struct {
 
 
 /*
- * Function to create a new rpn calculation
+ * Function to start a new rpn calculation
  */
 int *rpn_calc(char *input);
 
 
 /*
- * creating a lookup table and functions
+ * lookup table and functions
  * to parse char operators
  */
 int (*ops[6])(int, int);

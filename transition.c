@@ -11,7 +11,7 @@
 /*
  * function to create a new transition
  */
-Transition * transition_create(char description[255],
+Transition * trans_create(char description[255],
                                int destState,
                                int (*read) (int),
                                int (*pop) (int),

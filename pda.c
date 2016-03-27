@@ -5,12 +5,7 @@
 
 
 #include "pda.h"
-#include "state.h"
-#include "transition.h"
-#include <stdlib.h>
 #include <string.h>
-#include "functions.h"
-
 
 /*
  * function to create a new pda
@@ -37,7 +32,7 @@ Pda *pda_create()
 }
 
 /*
- * Function to add a new state
+ * Function to add a new state to a pda
  */
 void *pda_addState(Pda *pda, State *state){
     int * stateId = calloc(1, sizeof(int));
@@ -53,7 +48,7 @@ int compareInt(void *ip,void *ip2){
 /*
  * Function to execute a pda
  */
-int *pda_execute(Pda *pda, char *input){
+int *pda_execute(Pda *pda, char *input, bool diagnostic){
 
     /*
      * INITIALIZE PDA EVALUATION
@@ -69,7 +64,7 @@ int *pda_execute(Pda *pda, char *input){
      * Set start state
      */
     if(!pda_setStartState(pda)){
-        //printf("There is no start state! \n");
+        printf("There is no start state! \n");
         return 0;
     }
 
@@ -78,9 +73,16 @@ int *pda_execute(Pda *pda, char *input){
         pda_getPossibleTransition(pda);
         if(pda->bailout == false && pda->succeed == false){
             pda_doTransition(pda);
-            //printf("From State %d, done transition %s\n", pda->currentState->id, pda->possibleTransition->description);
-            //printf("input %c, input left %d\n", pda->input[0], pda->inputLeft);
-            //printf("bailout %d, succeed %d\n", pda->bailout, pda->succeed);
+
+            // Diagnostic print out to follow up States and Transitions
+            if ( diagnostic ) {
+                printf("From State %d, done transition %s\n",
+                       pda->currentState->id,
+                       pda->possibleTransition->description);
+                printf("input %c, input left %d\n", pda->input[0],
+                       pda->inputLeft);
+                printf("bailout %d, succeed %d\n", pda->bailout, pda->succeed);
+            }
         }
     }
 
@@ -181,10 +183,8 @@ int pda_getPossibleTransition(Pda *pda){
         // Check if all conditions met
         if (transReadCheckFlag + transPopCheckFlag == 2){
             if(transMainCheckFlag == 1){
-                //printf("pda is non-deterministic - "
-                //               "two viable transitions found");
-
-                // set bailout true to stop the processing
+                printf("pda is non-deterministic - "
+                               "two viable transitions found");
                 pda->bailout = true;
             }
             transMainCheckFlag = 1;
@@ -209,16 +209,16 @@ int pda_getPossibleTransition(Pda *pda){
 
 
     } else {
-        //printf("No viable transition found!!!\n");
+        // No viable transition found
         if(pda->currentState->accepted==true){
             if(pda->inputLeft <= 0){
+                // Current State 'accepted' SUCCESS
                 pda->succeed = true;
             }
             pda->bailout = true;
-            //printf("Current State 'accepted' SUCCESS!\n");
         } else {
+            // Current State 'not accepted' FAIL
             pda->bailout = true;
-            //printf("Current State 'not accepted' FAIL!\n");
             printf("Invalid expression\n");
         }
         return 0;
