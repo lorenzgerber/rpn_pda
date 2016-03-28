@@ -3,8 +3,7 @@
  * course DV2: Algorithms and problemsolving 7.5 p, 5DV169
  *
  * This program creates and configures a Push Down Automaton that
- * validates one commandline argument to be of the language 'Reverse
- * Polish Notation'. If yes, the expression will be evaluated/calculated.
+ * validates one commandline argument for 'Bracket matching'.
  *
  * @input: command line arg expression, between double quotes
  *
@@ -50,7 +49,7 @@ int main(int argc, char **argv) {
     Transition *t_01 = trans_create("1, e,e->$", 1, NULL, NULL, dollarSymbol);
     Transition *t_02 = trans_create("2, (,e->(", 2, isOpeningBracket, NULL, openingBracket);
     Transition *t_03 = trans_create("3, e,$->$", 1, NULL, isDollarSymbol, dollarSymbol);
-    Transition *t_04 = trans_create("4, (,e->(", 2, isOpeningBracket, NULL, openingBracket);
+    Transition *t_04 = trans_create("4, (,e->(", 2, isOpeningBracket, isOpeningBracket, openingBracket);
     Transition *t_05 = trans_create("5, ),(->e", 2, isClosingBracket, isOpeningBracket,NULL);
 
 

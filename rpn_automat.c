@@ -1,10 +1,10 @@
 /*
  * This program was designed and implemented for a mandatory assignment in the
- * course DV2: Algorithms and problemsolving 7.5 p, 5DV169
+ * course DV2: Algorithms and Problemsolving 7.5 p, 5DV169
  *
  * This program creates and configures a Push Down Automaton that
  * validates one commandline argument to be of the language 'Reverse
- * Polish Notation'. If yes, the expression will be evaluated/calculated.
+ * Polish Notation'. If correct, the expression will be evaluated/calculated.
  *
  * @input: command line arg expression, between double quotes
  *
@@ -16,6 +16,7 @@
 #include <ctype.h>
 #include "functions.h"
 #include <string.h>
+
 
 
 int wrongArgs(void);
@@ -43,7 +44,7 @@ int main(int argc, char **argv) {
     State *second = state_create(2, false, "unterminated");
     State *third = state_create(3, false, "terminated");
     State *fourth = state_create(4, false, "processing 1st operand");
-    State *fifth = state_create(5, false, "processing 2nd operand");
+    //State *fifth = state_create(5, false, "processing 2nd operand");
     State *sixth = state_create(6, false, "check terminal");
     State *seventh = state_create(7, true, "success");
 
@@ -63,11 +64,10 @@ int main(int argc, char **argv) {
     Transition *t_07 = trans_create("7, O,B->e", 4, isOperator, isBlank, NULL);
     Transition *t_08 = trans_create("8, T,B->e", 6, isTerminal, isBlank, NULL);
     Transition *t_09 = trans_create("9, e,N->e", 4, NULL, isdigit, NULL);
-    Transition *t_10 = trans_create("10, e,B->e", 5, NULL, isBlank, NULL);
-    Transition *t_11 = trans_create("11, e,e->B", 3, NULL, NULL, blankChar);
-    Transition *t_12 = trans_create("12, e,N->e", 6, NULL, isdigit, NULL);
-    Transition *t_13 = trans_create("13, e,$->e", 7, NULL, isDollarSymbol, NULL);
-    Transition *t_14 = trans_create("14, B,e->e", 3, isBlank, NULL, NULL);
+    Transition *t_10 = trans_create("10, e,B->B", 3, NULL, isBlank, blankChar);
+    Transition *t_11 = trans_create("11, e,N->e", 6, NULL, isdigit, NULL);
+    Transition *t_12 = trans_create("12, e,$->e", 7, NULL, isDollarSymbol, NULL);
+    Transition *t_13 = trans_create("13, B,e->e", 3, isBlank, NULL, NULL);
 
 
     /*
@@ -83,12 +83,11 @@ int main(int argc, char **argv) {
     state_addTransition(third, t_03_3);
     state_addTransition(third, t_07);
     state_addTransition(third, t_08);
-    state_addTransition(third, t_14);
+    state_addTransition(third, t_13);
     state_addTransition(fourth, t_09);
     state_addTransition(fourth, t_10);
-    state_addTransition(fifth, t_11);
+    state_addTransition(sixth, t_11);
     state_addTransition(sixth, t_12);
-    state_addTransition(sixth, t_13);
 
     /*
      * Adding states to the pda
@@ -98,7 +97,6 @@ int main(int argc, char **argv) {
     pda_addState(rpn_pda, second);
     pda_addState(rpn_pda, third);
     pda_addState(rpn_pda, fourth);
-    pda_addState(rpn_pda, fifth);
     pda_addState(rpn_pda, sixth);
     pda_addState(rpn_pda, seventh);
 
@@ -134,6 +132,9 @@ int main(int argc, char **argv) {
     return 0;
 }
 
+/*
+ * screen output in case of missing argument
+ */
 int wrongArgs(void){
     printf("Wrong args\n");
     return 0;

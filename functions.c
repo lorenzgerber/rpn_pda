@@ -17,6 +17,7 @@ int isOperator(int toCheck){
 
 /*
  * Function that checks for a blank.
+ * returns 'true' if toCheck is a Blank
  */
 int isBlank(int toCheck){
     if(toCheck == 32)
@@ -26,21 +27,25 @@ int isBlank(int toCheck){
 }
 
 /*
- * Function used as epsilon condition in transitions
+ * Function used as epsilon condition in transitions:
+ * on calling, it always returns true.
  */
 int isEpsilon(int notUsed){
     return 1;
 }
 
 /*
- * Function that returns the argument
+ * Function that returns the int 256. 256 is
+ * evaluated in the push condition of a transition
+ * as 'push Input on the stack'
  */
 int pushInput(int notUsed){
     return 256;
 }
 
 /*
- * Function to check if input is empty/used up
+ * Function to check if input is empty/used up.
+ * Returns 'true' if input is the EOF ascii character 4.
  */
 int isTerminal(int input){
     if(input == 4)
@@ -50,14 +55,16 @@ int isTerminal(int input){
 
 
 /*
- * Function that returns the int value ofa a '$' char
+ * Function that returns the int value ofa a '$' char.
+ * Used in the 'push' condition of a transition.
  */
 int dollarSymbol(int notUsed){
     return 36;
 }
 
 /*
- * Function that checks for a '$' char
+ * Function that checks for a '$' char. returns
+ * 'true' if 'toCheck' is 36 (ascii value for dollar symbol).
  */
 int isDollarSymbol(int toCheck){
     if(toCheck == 36)
@@ -66,7 +73,8 @@ int isDollarSymbol(int toCheck){
 }
 
 /*
- * Function that returns the int value of a blank char
+ * Function that returns the int value of a blank char.
+ * Used in the 'push' condition of a transition.
  */
 int blankChar(int notUsed){
     return 32;
@@ -92,7 +100,8 @@ int isClosingBracket(int toCheck){
 }
 
 /*
- * Function that returns the int value ofa a '(' char
+ * Function that returns the int value ofa a '(' char.
+ * Used in the 'push' condition of a transition.
  */
 int openingBracket(int notUsed){
     return 40;

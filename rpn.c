@@ -33,7 +33,6 @@ int *rpn_calc(char *input){
     rpn->rpnStack = stack_empty();
     stack_setMemHandler(rpn->rpnStack, free);
 
-    //printf("\nnow calculating the rpn expression \n");
 
     // Register input and input length to pda
     rpn->input = input;
@@ -51,24 +50,22 @@ int *rpn_calc(char *input){
 
 
     while(rpn->inputLeft > 0){
-        //printf("current input %c\n", rpn->input[rpn->inputPos]);
-        if (rpn->input[rpn->inputPos] == 32) {
-            //printf("this is a blank\n");
 
+        // checking for blanks
+        if (rpn->input[rpn->inputPos] == 32) {
             if(rpn->decCount > 0){
+                //pushing to stack
                 int *pushHandle = calloc(1, sizeof(int));
                 *pushHandle = rpn->assemble;
-                //printf("push to stack: %d\n", *pushHandle);
                 stack_push(rpn->rpnStack, pushHandle);
-                //free(pushHandle);
                 rpn->assemble = 0;
                 rpn->decCount = 0;
             }
 
         }
 
+        // check for a digit
         if (isdigit(rpn->input[rpn->inputPos])) {
-            //printf("this is a digit\n");
             char *charHandle = calloc(2, sizeof(char));
             *charHandle = rpn->input[rpn->inputPos];
             rpn->assemble = rpn->assemble * 10 + atoi(charHandle);
@@ -79,32 +76,39 @@ int *rpn_calc(char *input){
 
 
         /*
-         * The actual calculation part
-         * using a lookup table to parse the
+         * The actual calculation part.
+         * uses a lookup table to parse the
          * operators
          */
         if (rpn->input[rpn->inputPos] == 42 ||
                 rpn->input[rpn->inputPos] == 43 ||
                 rpn->input[rpn->inputPos] == 45 ||
                 rpn->input[rpn->inputPos] == 47){
-            //printf("this is a +\n");
 
             if(rpn->decCount > 0){
+                // push to the stack first
                 int *pushHandle = calloc(1, sizeof(int));
                 *pushHandle = rpn->assemble;
-                //printf("push to stack: %d\n", *pushHandle);
                 stack_push(rpn->rpnStack, pushHandle);
                 rpn->assemble = 0;
                 rpn->decCount = 0;
             }
 
+            // read second operand from stack
             rpn->secondOperand = *(int*)stack_top(rpn->rpnStack);
             stack_pop(rpn->rpnStack);
+
+            // read first operand from stack
             rpn->firstOperand = *(int*)stack_top(rpn->rpnStack);
             stack_pop(rpn->rpnStack);
+
             int *pushHandle = calloc(1, sizeof(int));
+
+            // actual calculation
             *pushHandle =  ops[rpn->input[rpn->inputPos] - 42]
                     (rpn->firstOperand, rpn->secondOperand);
+
+            // push result back on the stack
             stack_push(rpn->rpnStack, pushHandle);
 
         }
@@ -115,6 +119,8 @@ int *rpn_calc(char *input){
         rpn->inputLeft--;
         rpn->inputPos++;
     }
+
+    // screen output of result
     if(rpn->decCount!=0){
         printf("%d\n", rpn->assemble);
     } else {
