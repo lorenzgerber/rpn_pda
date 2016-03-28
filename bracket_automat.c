@@ -79,7 +79,7 @@ int main(int argc, char **argv) {
      */
     pda_execute(rpn_pda, argv[1], false);
 
-    // if the pda ends in an accepted state, start the calculation function
+    // if the pda ends in an accepted state, report it
     if (rpn_pda->succeed) {
         printf("Accepted\n");
     }
