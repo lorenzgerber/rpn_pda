@@ -64,3 +64,19 @@ int isClosingBracket(int toCheck);
  * Function that returns the int value ofa a '(' char
  */
 int openingBracket(int notUsed);
+
+/*
+ * Function to assemble multi digit numbers
+ */
+int mulitDigitAssemble(int toCheck);
+
+/*
+ * Function to use the two top values of the
+ * stack with operand from input
+ */
+int calcTopTwoStack(int notUsed);
+
+/*
+ * Function to Print the top of the stack to stdout
+ */
+int printTopStack(int notUsed);

@@ -3,6 +3,6 @@ project(rpn_pda)
 
 set(CMAKE_C_FLAGS "-std=c99")
 
-set(SOURCE_FILES bracket_automat.c pda.c rpn.c state.c transition.c
+set(SOURCE_FILES rpn_automat.c pda.c rpn.c state.c transition.c
         table.c dlist.c stack_1cell.c functions.c)
-add_executable(automat ${SOURCE_FILES} bracket_automat.c)
+add_executable(automat ${SOURCE_FILES} rpn_automat.c)

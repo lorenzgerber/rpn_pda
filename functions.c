@@ -106,3 +106,25 @@ int isClosingBracket(int toCheck){
 int openingBracket(int notUsed){
     return 40;
 }
+
+/*
+ * Function to assemble multi digit numbers
+ */
+int mulitDigitAssemble(int notUsed){
+    return 257;
+}
+
+/*
+ * Function to use the two top values of the
+ * stack with operand from input
+ */
+int calcTopTwoStack(int notUsed){
+    return 258;
+}
+
+/*
+ * Function to Print the top of the stack to stdout
+ */
+int printTopStack(int notUsed){
+    return 259;
+}

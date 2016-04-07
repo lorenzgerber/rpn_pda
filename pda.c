@@ -6,6 +6,7 @@
 
 #include "pda.h"
 #include <string.h>
+#include <math.h>
 
 /*
  * function to create a new pda
@@ -15,8 +16,6 @@ Pda *pda_create()
     Pda *pda = calloc(sizeof(Pda),1);
     if (!pda)
         return NULL;
-
-
 
     // initialize states table
     pda->pdaStateTable = table_create(compareInt);
@@ -275,6 +274,7 @@ int pda_doTransition(Pda *pda){
      * - push the current input char to the stack
      *
      */
+    /*
     if(!transition_checkPushEpsilon(pda->possibleTransition)){
         if(transition_checkPush(pda->possibleTransition)==256){
             int *pusherHandle = calloc(1, sizeof(int));
@@ -284,6 +284,89 @@ int pda_doTransition(Pda *pda){
             int *pusherHandle = calloc(1, sizeof(int));
             *pusherHandle = transition_checkPush(pda->possibleTransition);
             stack_push(pda->pdaStack, pusherHandle);
+        }
+    }*/
+
+    if(!transition_checkPushEpsilon(pda->possibleTransition)){
+        switch (transition_checkPush(pda->possibleTransition)){
+            case 256: // push input to stack
+            {
+                int *pusherHandle = calloc(1, sizeof(int));
+                *pusherHandle = (int) pda->input[0];
+                stack_push(pda->pdaStack, pusherHandle);
+            }
+                break;
+
+            case 257: // accumulating numbers
+            {
+                int firstOp;
+                int secOp;
+                int result;
+                firstOp = (int) stack_top(pda->pdaStack);
+                secOp = (int) pda->input[0];
+                stack_pop(pda->pdaStack);
+
+                result = firstOp * pow(10, (int)log10(secOp)+1) + secOp;
+                int *pusherHandle = calloc(1, sizeof(int));
+                *pusherHandle = result;
+                stack_push(pda->pdaStack, pusherHandle);
+            }
+            break;
+
+
+            case 258: // calculating
+            {
+                int firstOp;
+                int secOp;
+                int operand;
+                operand = (int) pda->input[0];
+                firstOp = (int) stack_top(pda->pdaStack);
+                stack_pop(pda->pdaStack);
+                secOp = (int) stack_top(pda->pdaStack);
+                stack_pop(pda->pdaStack);
+
+                int *pusherHandle = calloc(1, sizeof(int));
+
+                switch(operand){
+                    case '+':
+                    {
+                        *pusherHandle = firstOp + secOp;
+                    }
+                    break;
+                    case '-':
+                    {
+                        *pusherHandle = firstOp - secOp;
+                    }
+                    break;
+                    case '*':
+                    {
+                        *pusherHandle = firstOp * secOp;
+                    }
+                    break;
+                    case '/':
+                    {
+                        *pusherHandle = firstOp / secOp;
+                    }
+                    break;
+                }
+                stack_push(pda->pdaStack, pusherHandle);
+            }
+            break;
+
+            case 259: // print top of stack to stdout
+            {
+                printf("%d", (int) stack_top(pda->pdaStack));
+                stack_pop(pda->pdaStack);
+            }
+            break;
+
+            default: // plain vanilla single digit push to stack
+            {
+                int *pusherHandle = calloc(1, sizeof(int));
+                *pusherHandle = transition_checkPush(pda->possibleTransition);
+                stack_push(pda->pdaStack, pusherHandle);
+            }
+
         }
     }
 
