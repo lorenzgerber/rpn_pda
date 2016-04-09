@@ -2,6 +2,13 @@
  * These functions were implemented for an assignment in course DV2:
  * Algorithms and problemsolving 7.5 p, 5DV169
  */
+#include "functions.h"
+
+
+/*
+ * Functions that check the input value for a certain
+ * condition (value) and return true or false
+ */
 
 
 
@@ -34,14 +41,7 @@ int isEpsilon(int notUsed){
     return 1;
 }
 
-/*
- * Function that returns the int 256. 256 is
- * evaluated in the push condition of a transition
- * as 'push Input on the stack'
- */
-int pushInput(int notUsed){
-    return 256;
-}
+
 
 /*
  * Function to check if input is empty/used up.
@@ -55,14 +55,6 @@ int isTerminal(int input){
 
 
 /*
- * Function that returns the int value ofa a '$' char.
- * Used in the 'push' condition of a transition.
- */
-int dollarSymbol(int notUsed){
-    return 36;
-}
-
-/*
  * Function that checks for a '$' char. returns
  * 'true' if 'toCheck' is 36 (ascii value for dollar symbol).
  */
@@ -72,13 +64,83 @@ int isDollarSymbol(int toCheck){
     return 0;
 }
 
+
+
+
+
+
+/*
+ * functions that provide output for the push operation
+ */
+
+
+
+/*
+ * Function that returns the int 256. 256 is
+ * evaluated in the push condition of a transition
+ * as 'push Input on the stack'
+ */
+int pushInput(struct Pda* pda){
+    return 256;
+}
+
+
+/*
+ * Function that returns the int value of a '$' char.
+ * Used in the 'push' condition of a transition.
+ */
+int dollarSymbol(struct Pda* pda){
+    return 36;
+}
+
+
+
 /*
  * Function that returns the int value of a blank char.
  * Used in the 'push' condition of a transition.
  */
-int blankChar(int notUsed){
+int blankChar(struct Pda* pda){
     return 32;
 }
+
+
+
+/*
+ * Function to assemble multi digit numbers
+ * and return the assembled value
+ */
+int mulitDigitAssemble(struct Pda *pda){
+
+    return 1;
+}
+
+/*
+ * Function to use the two top values of the
+ * stack with operand from input and return
+ * the result
+ *
+ */
+int calcTopTwoStack(struct Pda *pda){
+
+    return 1;
+}
+
+/*
+ * Function that returns the top of the stack
+ */
+int printTopStack(struct Pda *pda){
+
+    return 1;
+}
+
+
+
+
+
+
+
+
+
 
 /*
  * Function that checks for a '(' char
@@ -105,26 +167,4 @@ int isClosingBracket(int toCheck){
  */
 int openingBracket(int notUsed){
     return 40;
-}
-
-/*
- * Function to assemble multi digit numbers
- */
-int mulitDigitAssemble(int notUsed){
-    return 257;
-}
-
-/*
- * Function to use the two top values of the
- * stack with operand from input
- */
-int calcTopTwoStack(int notUsed){
-    return 258;
-}
-
-/*
- * Function to Print the top of the stack to stdout
- */
-int printTopStack(int notUsed){
-    return 259;
 }

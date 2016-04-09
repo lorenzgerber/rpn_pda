@@ -17,7 +17,7 @@ Transition * trans_create(
         int destState,
         int (*read) (int),
         int (*pop) (int),
-        int (*push) (int))
+        int (*push) (struct Pda*))
 {
     Transition *new_transition = calloc(sizeof(Transition),1);
     if (!new_transition)
@@ -84,5 +84,5 @@ int transition_checkPop(Transition * transition, char topStack){
  * provided by the transition
  */
 int transition_checkPush(Transition * transition){
-    return transition->push(1);
+    return transition->push(transition->pda);
 }

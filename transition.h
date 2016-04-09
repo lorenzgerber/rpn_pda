@@ -10,7 +10,7 @@
 #include "dlist.h"
 
 
-struct pda;
+struct Pda;
 
 
 typedef struct {
@@ -31,7 +31,7 @@ Transition * trans_create(
         int destState,
         int (*read) (int),
         int (*pop) (int),
-        int (*push) (int));
+        int (*push) (struct Pda*));
 
 
 /*

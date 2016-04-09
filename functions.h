@@ -5,6 +5,14 @@
 
 
 #include <stdbool.h>
+struct Pda;
+
+/*
+ * Functions that check the input value for a certain
+ * condition (value) and return true or false
+ */
+
+
 
 /*
  * Function that checks for operator. If the provided argument
@@ -19,11 +27,6 @@ int isOperator(int toCheck);
 int isEpsilon(int toCheck);
 
 /*
- * Function that returns the argument
- */
-int pushInput(int);
-
-/*
  * Function that checks for a blank.
  */
 int isBlank(int toCheck);
@@ -34,20 +37,66 @@ int isBlank(int toCheck);
  */
 int isTerminal(int input);
 
-/*
- * Function that returns the int value ofa a '$' char
- */
-int dollarSymbol(int notUser);
 
 /*
- * Function that returns the int value ofa a '$' char
+ * Function that checks for the int value of a '$' char
  */
 int isDollarSymbol(int toCheck);
 
+
+
+
+
+
+/*
+ * functions that provide output for the push operation
+ */
+
+
+
+/*
+ * Function that returns the int 256. 256 is
+ * evaluated in the push condition of a transition
+ * as 'push Input on the stack'
+ */
+int pushInput(struct Pda *pda);
+
+
+/*
+ * Function that returns the int value of a '$' char
+ */
+int dollarSymbol(struct Pda *pda);
+
+
 /*
  * Function that returns the int value of a blank char
+ * Used in the 'push' condition of a transition.
  */
-int blankChar(int notUsed);
+int blankChar(struct Pda *pda);
+
+
+/*
+ * Function to assemble multi digit numbers
+ */
+int mulitDigitAssemble(struct Pda *pda);
+
+/*
+ * Function to use the two top values of the
+ * stack with operand from input
+ */
+int calcTopTwoStack(struct Pda *pda);
+
+/*
+ * Function to Print the top of the stack to stdout
+ */
+int printTopStack(struct Pda *pda);
+
+
+
+
+
+
+// functions used for the bracket machine
 
 /*
  * Function that checks for a '(' char
@@ -64,19 +113,3 @@ int isClosingBracket(int toCheck);
  * Function that returns the int value ofa a '(' char
  */
 int openingBracket(int notUsed);
-
-/*
- * Function to assemble multi digit numbers
- */
-int mulitDigitAssemble(int toCheck);
-
-/*
- * Function to use the two top values of the
- * stack with operand from input
- */
-int calcTopTwoStack(int notUsed);
-
-/*
- * Function to Print the top of the stack to stdout
- */
-int printTopStack(int notUsed);
