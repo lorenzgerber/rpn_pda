@@ -70,26 +70,16 @@ int isDollarSymbol(int toCheck){
 
 
 /*
- * functions that provide output for the push operation
- */
-
-int pushAlphabet(void *pda){
-    int *pusherHandle = calloc(1, sizeof(int));
-    *pusherHandle = transition_checkPush(((Pda *)pda)->possibleTransition);
-    stack_push( ((Pda *) pda)->pdaStack, pusherHandle);
-
-}
-
-/*
  * Function that returns the int 256. 256 is
  * evaluated in the push condition of a transition
  * as 'push Input on the stack'
  */
 int pushInput(void *pda){
-    int *pusherHandle = calloc(1, sizeof(int));
+    /*int *pusherHandle = calloc(1, sizeof(int));
     *pusherHandle = (int) ((Pda *)pda)->input[0];
     stack_push( ((Pda *) pda)->pdaStack, pusherHandle);
-    return 256;
+    return 256;*/
+    return ((Pda *) pda)->input[0];
 }
 
 
@@ -119,7 +109,17 @@ int blankChar(void *pda){
  */
 int mulitDigitAssemble(void *pda){
 
-    return 1;
+    int firstOp;
+    int secOp;
+    int result;
+    firstOp = (int) stack_top(((Pda*)pda)->pdaStack);
+    secOp = (int) ((Pda*)pda)->input[0];
+    stack_pop(((Pda*)pda)->pdaStack);
+
+    result = firstOp * pow(10, (int)log10(secOp)+1) + secOp;
+
+    return result;
+
 }
 
 /*
@@ -130,7 +130,41 @@ int mulitDigitAssemble(void *pda){
  */
 int calcTopTwoStack(void *pda){
 
-    return 1;
+    int firstOp;
+    int secOp;
+    int operand;
+    int result;
+    operand = (int) ((Pda*)pda)->input[0];
+    firstOp = (int) stack_top(((Pda*)pda)->pdaStack);
+    stack_pop(((Pda*)pda)->pdaStack);
+    secOp = (int) stack_top(((Pda*)pda)->pdaStack);
+    stack_pop(((Pda*)pda)->pdaStack);
+
+
+    switch(operand){
+        case '+':
+        {
+            result = firstOp + secOp;
+        }
+            break;
+        case '-':
+        {
+            result = firstOp - secOp;
+        }
+            break;
+        case '*':
+        {
+            result = firstOp * secOp;
+        }
+            break;
+        case '/':
+        {
+            result = firstOp / secOp;
+        }
+            break;
+    }
+
+    return result;
 }
 
 /*
@@ -138,7 +172,9 @@ int calcTopTwoStack(void *pda){
  */
 int printTopStack(void *pda){
 
-    return 1;
+    printf("%d", (int) stack_top(((Pda*)pda)->pdaStack));
+    stack_pop(((Pda*)pda)->pdaStack);
+    return 0;
 }
 
 

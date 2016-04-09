@@ -7,6 +7,7 @@
 #define PDA
 
 #include <stdbool.h>
+#include <string.h>
 #include "table.h"
 #include "stack_1cell.h"
 #include "state.h"
