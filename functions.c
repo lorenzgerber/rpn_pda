@@ -107,7 +107,7 @@ int blankChar(void *pda){
  * Function to assemble multi digit numbers
  * and return the assembled value
  */
-int mulitDigitAssemble(void *pda){
+int multiDigitAssemble(void *pda){
 
     int firstOp;
     int secOp;
@@ -159,6 +159,10 @@ int calcTopTwoStack(void *pda){
             break;
         case '/':
         {
+            if(secOp==0){
+                printf("crap off\n");
+                exit(0);
+            }
             result = firstOp / secOp;
         }
             break;

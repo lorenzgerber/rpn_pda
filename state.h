@@ -24,7 +24,6 @@ typedef struct {
 State * state_create(int id, bool accepted,
                      char description[255]);
 
-
 /*
  * function to add a transition to the current state
  */

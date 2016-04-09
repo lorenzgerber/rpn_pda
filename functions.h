@@ -80,7 +80,7 @@ int blankChar(void *pda);
 /*
  * Function to assemble multi digit numbers
  */
-int mulitDigitAssemble(void *pda);
+int multiDigitAssemble(void *pda);
 
 /*
  * Function to use the two top values of the
