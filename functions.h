@@ -5,7 +5,8 @@
 
 
 #include <stdbool.h>
-struct Pda;
+#include <stdlib.h>
+#include "pda.h"
 
 /*
  * Functions that check the input value for a certain
@@ -59,37 +60,37 @@ int isDollarSymbol(int toCheck);
  * evaluated in the push condition of a transition
  * as 'push Input on the stack'
  */
-int pushInput(struct Pda *pda);
+int pushInput(void* pda);
 
 
 /*
  * Function that returns the int value of a '$' char
  */
-int dollarSymbol(struct Pda *pda);
+int dollarSymbol(void *pda);
 
 
 /*
  * Function that returns the int value of a blank char
  * Used in the 'push' condition of a transition.
  */
-int blankChar(struct Pda *pda);
+int blankChar(void *pda);
 
 
 /*
  * Function to assemble multi digit numbers
  */
-int mulitDigitAssemble(struct Pda *pda);
+int mulitDigitAssemble(void *pda);
 
 /*
  * Function to use the two top values of the
  * stack with operand from input
  */
-int calcTopTwoStack(struct Pda *pda);
+int calcTopTwoStack(void *pda);
 
 /*
  * Function to Print the top of the stack to stdout
  */
-int printTopStack(struct Pda *pda);
+int printTopStack(void *pda);
 
 
 

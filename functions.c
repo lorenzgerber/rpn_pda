@@ -73,14 +73,22 @@ int isDollarSymbol(int toCheck){
  * functions that provide output for the push operation
  */
 
+int pushAlphabet(void *pda){
+    int *pusherHandle = calloc(1, sizeof(int));
+    *pusherHandle = transition_checkPush(((Pda *)pda)->possibleTransition);
+    stack_push( ((Pda *) pda)->pdaStack, pusherHandle);
 
+}
 
 /*
  * Function that returns the int 256. 256 is
  * evaluated in the push condition of a transition
  * as 'push Input on the stack'
  */
-int pushInput(struct Pda* pda){
+int pushInput(void *pda){
+    int *pusherHandle = calloc(1, sizeof(int));
+    *pusherHandle = (int) ((Pda *)pda)->input[0];
+    stack_push( ((Pda *) pda)->pdaStack, pusherHandle);
     return 256;
 }
 
@@ -89,7 +97,7 @@ int pushInput(struct Pda* pda){
  * Function that returns the int value of a '$' char.
  * Used in the 'push' condition of a transition.
  */
-int dollarSymbol(struct Pda* pda){
+int dollarSymbol(void *pda){
     return 36;
 }
 
@@ -99,7 +107,7 @@ int dollarSymbol(struct Pda* pda){
  * Function that returns the int value of a blank char.
  * Used in the 'push' condition of a transition.
  */
-int blankChar(struct Pda* pda){
+int blankChar(void *pda){
     return 32;
 }
 
@@ -109,7 +117,7 @@ int blankChar(struct Pda* pda){
  * Function to assemble multi digit numbers
  * and return the assembled value
  */
-int mulitDigitAssemble(struct Pda *pda){
+int mulitDigitAssemble(void *pda){
 
     return 1;
 }
@@ -120,7 +128,7 @@ int mulitDigitAssemble(struct Pda *pda){
  * the result
  *
  */
-int calcTopTwoStack(struct Pda *pda){
+int calcTopTwoStack(void *pda){
 
     return 1;
 }
@@ -128,7 +136,7 @@ int calcTopTwoStack(struct Pda *pda){
 /*
  * Function that returns the top of the stack
  */
-int printTopStack(struct Pda *pda){
+int printTopStack(void *pda){
 
     return 1;
 }

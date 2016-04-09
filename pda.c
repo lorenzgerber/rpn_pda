@@ -291,9 +291,11 @@ int pda_doTransition(Pda *pda){
         switch (transition_checkPush(pda->possibleTransition)){
             case 256: // push input to stack
             {
+                /*
                 int *pusherHandle = calloc(1, sizeof(int));
                 *pusherHandle = (int) pda->input[0];
                 stack_push(pda->pdaStack, pusherHandle);
+                 */
             }
                 break;
 

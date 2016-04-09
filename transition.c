@@ -12,12 +12,12 @@
  * function to create a new transition
  */
 Transition * trans_create(
-        struct Pda *pda,
+        void *pda,
         char description[255],
         int destState,
         int (*read) (int),
         int (*pop) (int),
-        int (*push) (struct Pda*))
+        int (*push) (void*))
 {
     Transition *new_transition = calloc(sizeof(Transition),1);
     if (!new_transition)
