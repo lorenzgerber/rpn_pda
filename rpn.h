@@ -30,6 +30,9 @@ int *rpn_calc(char *input);
 /*
  * lookup table and functions
  * to parse char operators
+ * This method was adapted freely
+ * from a StackOverflow post:
+ * http://stackoverflow.com/a/22114821
  */
 int (*ops[6])(int, int);
 int mul(int f, int s);
