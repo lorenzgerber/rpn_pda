@@ -9,7 +9,12 @@
 #include <stdbool.h>
 #include "dlist.h"
 
+
+struct pda;
+
+
 typedef struct {
+    struct Pda *pda;
     char description[255];
     int destState;
     int (*read) (int);
@@ -20,11 +25,13 @@ typedef struct {
 /*
  * function to create a new transition
  */
-Transition * trans_create(char description[255],
-                               int destState,
-                               int (*read) (int),
-                               int (*pop) (int),
-                               int (*push) (int));
+Transition * trans_create(
+        struct Pda *pda,
+        char description[255],
+        int destState,
+        int (*read) (int),
+        int (*pop) (int),
+        int (*push) (int));
 
 
 /*

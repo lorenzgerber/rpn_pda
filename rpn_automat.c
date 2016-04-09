@@ -53,21 +53,21 @@ int main(int argc, char **argv) {
      * Creating transitions to Reverse Polish Notation Automaton
      * Comment, source, dest, read, pop, push
      */
-    Transition *t_01 = trans_create("1, e,e->$", 1, NULL, NULL, dollarSymbol);
-    Transition *t_02 = trans_create("2, B,e->e", 1, isBlank, NULL, NULL);
-    Transition *t_03_1 = trans_create("3, N,e->I", 2, isdigit, NULL, pushInput);
-    Transition *t_03_2 = trans_create("3, N,e->I", 2, isdigit, NULL, pushInput);
-    Transition *t_03_3 = trans_create("3, N,e->I", 2, isdigit, NULL, pushInput);
-    Transition *t_04 = trans_create("4, O,e->e", 4, isOperator, NULL, NULL);
-    Transition *t_05 = trans_create("5, B,e->I", 3, isBlank, NULL, pushInput);
-    Transition *t_06 = trans_create("6, T,N->e", 6, isTerminal, NULL, NULL);
-    Transition *t_07 = trans_create("7, O,B->e", 4, isOperator, isBlank, NULL);
-    Transition *t_08 = trans_create("8, T,B->e", 6, isTerminal, isBlank, NULL);
-    Transition *t_09 = trans_create("9, e,N->e", 4, NULL, isdigit, NULL);
-    Transition *t_10 = trans_create("10, e,B->B", 3, NULL, isBlank, blankChar);
-    Transition *t_11 = trans_create("11, e,N->e", 6, NULL, isdigit, NULL);
-    Transition *t_12 = trans_create("12, e,$->e", 7, NULL, isDollarSymbol, NULL);
-    Transition *t_13 = trans_create("13, B,e->e", 3, isBlank, NULL, NULL);
+    Transition *t_01 = trans_create(rpn_pda, "1, e,e->$", 1, NULL, NULL, dollarSymbol);
+    Transition *t_02 = trans_create(rpn_pda, "2, B,e->e", 1, isBlank, NULL, NULL);
+    Transition *t_03_1 = trans_create(rpn_pda, "3, N,e->I", 2, isdigit, NULL, pushInput);
+    Transition *t_03_2 = trans_create(rpn_pda, "3, N,e->I", 2, isdigit, NULL, pushInput);
+    Transition *t_03_3 = trans_create(rpn_pda, "3, N,e->I", 2, isdigit, NULL, pushInput);
+    Transition *t_04 = trans_create(rpn_pda, "4, O,e->e", 4, isOperator, NULL, NULL);
+    Transition *t_05 = trans_create(rpn_pda, "5, B,e->I", 3, isBlank, NULL, pushInput);
+    Transition *t_06 = trans_create(rpn_pda, "6, T,N->e", 6, isTerminal, NULL, NULL);
+    Transition *t_07 = trans_create(rpn_pda, "7, O,B->e", 4, isOperator, isBlank, NULL);
+    Transition *t_08 = trans_create(rpn_pda, "8, T,B->e", 6, isTerminal, isBlank, NULL);
+    Transition *t_09 = trans_create(rpn_pda, "9, e,N->e", 4, NULL, isdigit, NULL);
+    Transition *t_10 = trans_create(rpn_pda, "10, e,B->B", 3, NULL, isBlank, blankChar);
+    Transition *t_11 = trans_create(rpn_pda, "11, e,N->e", 6, NULL, isdigit, NULL);
+    Transition *t_12 = trans_create(rpn_pda, "12, e,$->e", 7, NULL, isDollarSymbol, NULL);
+    Transition *t_13 = trans_create(rpn_pda, "13, B,e->e", 3, isBlank, NULL, NULL);
 
 
     /*

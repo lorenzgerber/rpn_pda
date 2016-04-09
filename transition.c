@@ -11,16 +11,19 @@
 /*
  * function to create a new transition
  */
-Transition * trans_create(char description[255],
-                               int destState,
-                               int (*read) (int),
-                               int (*pop) (int),
-                               int (*push) (int))
+Transition * trans_create(
+        struct Pda *pda,
+        char description[255],
+        int destState,
+        int (*read) (int),
+        int (*pop) (int),
+        int (*push) (int))
 {
     Transition *new_transition = calloc(sizeof(Transition),1);
     if (!new_transition)
         return NULL;
 
+    new_transition->pda = pda;
     strcpy(new_transition->description, description);
     new_transition->destState = destState;
     new_transition->read = read;
