@@ -79,7 +79,13 @@ int pushInput(void *pda){
     *pusherHandle = (int) ((Pda *)pda)->input[0];
     stack_push( ((Pda *) pda)->pdaStack, pusherHandle);
     return 256;*/
-    return ((Pda *) pda)->input[0];
+    return (((Pda *) pda)->input[0]);
+}
+
+int pushInputInt(void *pda){
+    return (((Pda *) pda)->input[0]-48);
+
+
 }
 
 
@@ -112,11 +118,13 @@ int multiDigitAssemble(void *pda){
     int firstOp;
     int secOp;
     int result;
-    firstOp = (int) stack_top(((Pda*)pda)->pdaStack);
-    secOp = (int) ((Pda*)pda)->input[0];
+    int pow = 10;
+    firstOp =  *(int*) stack_top(((Pda*)pda)->pdaStack);
+    secOp = (int) ((Pda*)pda)->input[0]-48;
     stack_pop(((Pda*)pda)->pdaStack);
-
-    result = firstOp * pow(10, (int)log10(secOp)+1) + secOp;
+    while(secOp >= pow)
+        pow *=10;
+    result = firstOp * pow + secOp;
 
     return result;
 
@@ -135,9 +143,9 @@ int calcTopTwoStack(void *pda){
     int operand;
     int result;
     operand = (int) ((Pda*)pda)->input[0];
-    firstOp = (int) stack_top(((Pda*)pda)->pdaStack);
+    secOp = *(int*) stack_top(((Pda*)pda)->pdaStack);
     stack_pop(((Pda*)pda)->pdaStack);
-    secOp = (int) stack_top(((Pda*)pda)->pdaStack);
+    firstOp = *(int*) stack_top(((Pda*)pda)->pdaStack);
     stack_pop(((Pda*)pda)->pdaStack);
 
 
@@ -160,7 +168,7 @@ int calcTopTwoStack(void *pda){
         case '/':
         {
             if(secOp==0){
-                printf("crap off\n");
+                printf("Divide by 0 error\n");
                 exit(0);
             }
             result = firstOp / secOp;
@@ -176,7 +184,7 @@ int calcTopTwoStack(void *pda){
  */
 int printTopStack(void *pda){
 
-    printf("%d", (int) stack_top(((Pda*)pda)->pdaStack));
+    printf("%d", *(int*) stack_top(((Pda*)pda)->pdaStack));
     stack_pop(((Pda*)pda)->pdaStack);
     return 0;
 }

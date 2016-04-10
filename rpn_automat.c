@@ -9,8 +9,6 @@
  * @input: command line arg expression, between double quotes
  *
  */
-
-#include "rpn.h"
 #include <stdio.h>
 #include "pda.h"
 #include <ctype.h>
@@ -41,24 +39,24 @@ int main(int argc, char **argv) {
 
 
     /*
-     * Creating and execute RPB Validator
+     * Creating and execute RPN Validator
      * Push Down Automaton
      */
     Pda *val_pda = pda_create();
     validator(val_pda);
     pda_execute(val_pda, argv[1], false);
 
-    Pda *calc_pda = pda_create();
-    calculator(calc_pda);
-    pda_execute(calc_pda, rpn_input, true);
 
-
-    // if the pda ends in an accepted state, start the calculation function
-    //if (val_pda->succeed) {
-    //    rpn_calc(rpn_input);
-    //}
-
-
+    /*
+     * creating and executing RPN Calculator
+     * Push Down Automaton
+     */
+    if(val_pda->succeed) {
+        Pda *calc_pda = pda_create();
+        calculator(calc_pda);
+        pda_execute(calc_pda, rpn_input, false);
+        pda_free(calc_pda);
+    }
 
 
     /*

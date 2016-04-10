@@ -65,6 +65,13 @@ int pushInput(void* pda);
 
 
 /*
+ * Function that returns the read/input value
+ * to be pushed on the stack.
+ */
+int pushInputInt(void *pda);
+
+
+/*
  * Function that returns the int value of a '$' char
  */
 int dollarSymbol(void *pda);
