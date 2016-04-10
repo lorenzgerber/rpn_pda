@@ -16,6 +16,7 @@
 #include <ctype.h>
 #include "functions.h"
 #include "validator.h"
+#include "calculator.h"
 
 
 
@@ -32,20 +33,6 @@ int main(int argc, char **argv) {
         return wrongArgs();
     }
 
-
-    /*
-     * Creating a Push Down Automaton
-     */
-    Pda *rpn_pda = pda_create();
-
-
-    validator(rpn_pda);
-
-
-
-
-
-
     /*
      * make copy of input string for rpn calculation
      */
@@ -53,24 +40,32 @@ int main(int argc, char **argv) {
     strcpy(rpn_input, argv[1]);
 
 
-
     /*
-     * actual pda execution
-     * The third argument will do diagnostic printout on the screen when true.
+     * Creating and execute RPB Validator
+     * Push Down Automaton
      */
-    pda_execute(rpn_pda, argv[1], false);
+    Pda *val_pda = pda_create();
+    validator(val_pda);
+    pda_execute(val_pda, argv[1], false);
+
+    Pda *calc_pda = pda_create();
+    calculator(calc_pda);
+    pda_execute(calc_pda, rpn_input, true);
+
 
     // if the pda ends in an accepted state, start the calculation function
-    if (rpn_pda->succeed) {
-        rpn_calc(rpn_input);
-    }
+    //if (val_pda->succeed) {
+    //    rpn_calc(rpn_input);
+    //}
+
+
 
 
     /*
      * Clean up
      */
     free(rpn_input);
-    pda_free(rpn_pda);
+    pda_free(val_pda);
 
 
     return 0;

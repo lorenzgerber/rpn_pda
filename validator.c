@@ -10,13 +10,13 @@ void validator(Pda *rpn_pda){
     /*
     * Creating states for the Reverse Polish Notation Automaton
     */
-    State *start = state_create(0, false, "start");
-    State *first = state_create(1, false, "initialized");
-    State *second = state_create(2, false, "unterminated");
-    State *third = state_create(3, false, "terminated");
-    State *fourth = state_create(4, false, "processing 1st operand");
-    State *sixth = state_create(6, false, "check terminal");
-    State *seventh = state_create(7, true, "success");
+    State *start_valid = state_create(0, false, "start");
+    State *first_valid = state_create(1, false, "initialized");
+    State *second_valid = state_create(2, false, "unterminated");
+    State *third_valid = state_create(3, false, "terminated");
+    State *fourth_valid = state_create(4, false, "processing 1st operand");
+    State *sixth_valid = state_create(6, false, "check terminal");
+    State *seventh_valid = state_create(7, true, "success");
 
 
     /*
@@ -43,32 +43,32 @@ void validator(Pda *rpn_pda){
     /*
      * Adding transitions to the states
      */
-    state_addTransition(start, t_01);
-    state_addTransition(first, t_02);
-    state_addTransition(first, t_03_1);
-    state_addTransition(second, t_03_2);
-    state_addTransition(second, t_04);
-    state_addTransition(second, t_05);
-    state_addTransition(second, t_06);
-    state_addTransition(third, t_03_3);
-    state_addTransition(third, t_07);
-    state_addTransition(third, t_08);
-    state_addTransition(third, t_13);
-    state_addTransition(fourth, t_09);
-    state_addTransition(fourth, t_10);
-    state_addTransition(sixth, t_11);
-    state_addTransition(sixth, t_12);
+    state_addTransition(start_valid, t_01);
+    state_addTransition(first_valid, t_02);
+    state_addTransition(first_valid, t_03_1);
+    state_addTransition(second_valid, t_03_2);
+    state_addTransition(second_valid, t_04);
+    state_addTransition(second_valid, t_05);
+    state_addTransition(second_valid, t_06);
+    state_addTransition(third_valid, t_03_3);
+    state_addTransition(third_valid, t_07);
+    state_addTransition(third_valid, t_08);
+    state_addTransition(third_valid, t_13);
+    state_addTransition(fourth_valid, t_09);
+    state_addTransition(fourth_valid, t_10);
+    state_addTransition(sixth_valid, t_11);
+    state_addTransition(sixth_valid, t_12);
 
     /*
      * Adding states to the pda
      */
-    pda_addState(rpn_pda, start);
-    pda_addState(rpn_pda, first);
-    pda_addState(rpn_pda, second);
-    pda_addState(rpn_pda, third);
-    pda_addState(rpn_pda, fourth);
-    pda_addState(rpn_pda, sixth);
-    pda_addState(rpn_pda, seventh);
+    pda_addState(rpn_pda, start_valid);
+    pda_addState(rpn_pda, first_valid);
+    pda_addState(rpn_pda, second_valid);
+    pda_addState(rpn_pda, third_valid);
+    pda_addState(rpn_pda, fourth_valid);
+    pda_addState(rpn_pda, sixth_valid);
+    pda_addState(rpn_pda, seventh_valid);
 
 
 
