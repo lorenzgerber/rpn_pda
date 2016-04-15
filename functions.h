@@ -121,4 +121,4 @@ int isClosingBracket(int toCheck);
 /*
  * Function that returns the int value ofa a '(' char
  */
-int openingBracket(int notUsed);
+int openingBracket(void *pda);

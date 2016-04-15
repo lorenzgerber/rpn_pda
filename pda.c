@@ -156,24 +156,17 @@ int pda_getPossibleTransition(Pda *pda){
         // check for read condition
         if(transition_checkReadEpsilon(currentTransition)) {
             transReadCheckFlag = 1;
-        } else {
-            if(transition_checkRead(currentTransition, *pda->input)){
+        } else if(transition_checkRead(currentTransition, *pda->input)){
                 transReadCheckFlag = 1;
-            }
         }
 
         // check for pop condition
         if(transition_checkPopEpsilon(currentTransition)) {
             transPopCheckFlag = 1;
-        } else {
-            if(!stack_isEmpty(pda->pdaStack)){
-                if(transition_checkPop(currentTransition,
-                                       *(int*)stack_top(pda->pdaStack))){
-                    transPopCheckFlag = 1;
-                }
-
-            }
-
+        } else if(!stack_isEmpty(pda->pdaStack) && transition_checkPop(currentTransition,
+                                       *(int*)stack_top(pda->pdaStack)))
+        {
+            transPopCheckFlag = 1;
         }
 
 
@@ -247,13 +240,12 @@ int pda_doTransition(Pda *pda){
      *   in get_possibleTransition().
      */
 
-    if(!transition_checkPopEpsilon(pda->possibleTransition)) {
-        if(!stack_isEmpty(pda->pdaStack)){
-            if(transition_checkPop(pda->possibleTransition,
-                                   *(int*)stack_top(pda->pdaStack))){
-                stack_pop(pda->pdaStack);
-            }
-        }
+    if(!transition_checkPopEpsilon(pda->possibleTransition) &&
+            !stack_isEmpty(pda->pdaStack) &&
+            transition_checkPop(pda->possibleTransition,
+                                *(int*)stack_top(pda->pdaStack)))
+    {
+        stack_pop(pda->pdaStack);
     }
 
 

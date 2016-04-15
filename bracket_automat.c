@@ -9,12 +9,10 @@
  *
  */
 
-#include "rpn.h"
 #include <stdio.h>
 #include "pda.h"
-#include <ctype.h>
 #include "functions.h"
-#include <string.h>
+
 
 
 int wrongArgs(void);
@@ -46,11 +44,11 @@ int main(int argc, char **argv) {
      * Creating transitions to Reverse Polish Notation Automaton
      * Comment, source, dest, read, pop, push
      */
-    Transition *t_01 = trans_create("1, e,e->$", 1, NULL, NULL, dollarSymbol);
-    Transition *t_02 = trans_create("2, (,e->(", 2, isOpeningBracket, NULL, openingBracket);
-    Transition *t_03 = trans_create("3, e,$->$", 1, NULL, isDollarSymbol, dollarSymbol);
-    Transition *t_04 = trans_create("4, (,e->(", 2, isOpeningBracket, isOpeningBracket, openingBracket);
-    Transition *t_05 = trans_create("5, ),(->e", 2, isClosingBracket, isOpeningBracket,NULL);
+    Transition *t_01 = trans_create(rpn_pda, "1, e,e->$", 1, NULL, NULL, dollarSymbol);
+    Transition *t_02 = trans_create(rpn_pda, "2, (,e->(", 2, isOpeningBracket, NULL, openingBracket);
+    Transition *t_03 = trans_create(rpn_pda, "3, e,$->$", 1, NULL, isDollarSymbol, dollarSymbol);
+    Transition *t_04 = trans_create(rpn_pda, "4, (,e->(", 2, isOpeningBracket, isOpeningBracket, openingBracket);
+    Transition *t_05 = trans_create(rpn_pda, "5, ),(->e", 2, isClosingBracket, isOpeningBracket,NULL);
 
 
 

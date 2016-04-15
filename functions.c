@@ -218,9 +218,9 @@ int isClosingBracket(int toCheck){
 }
 
 /*
- * Function that returns the int value ofa a '(' char.
+ * Function that returns the int value of a '(' char.
  * Used in the 'push' condition of a transition.
  */
-int openingBracket(int notUsed){
+int openingBracket(void *pda){
     return 40;
 }
